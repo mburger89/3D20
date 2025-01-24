@@ -22,7 +22,7 @@ struct HUD: View {
                 }
                 Spacer()
                 Button(action:{print("hello")}) {
-                   
+                    SceneView()
                 }
                 Spacer()
                 Button(action: {print("hello")}) {

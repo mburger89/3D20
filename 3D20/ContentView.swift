@@ -69,9 +69,4 @@ struct ContentView : View {
             
             }.edgesIgnoringSafeArea(.all)
     }
-
 }
-
-//#Preview {
-//    ContentView()
-//}
