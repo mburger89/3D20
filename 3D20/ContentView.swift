@@ -46,17 +46,20 @@ struct ContentView : View {
                     dice.collision?.filter = .default
                     dice.physicsBody?.mode = .dynamic
                     dice.physicsBody?.isContinuousCollisionDetectionEnabled = true
+                    dice.transform.rotation = simd_quatf(angle: Float.random(in: 1.0 ..< 360.0), axis: SIMD3(1.0, 0.0, 0.0))
                 }
                     // Create horizontal plane anchor for the content
-                let anchor = AnchorEntity(.plane(.horizontal, classification: .any, minimumBounds: SIMD2<Float>(0.01, 0.01)))
+                let anchor = AnchorEntity(.plane(.horizontal, classification: .any, minimumBounds: SIMD2<Float>(0.001, 0.001)))
                 try? await anchor.addChild(tray)
                 try? await anchor.addChild(dice)
+//                try? await content.add(dice)
                     // Add the horizontal plane anchor to the scene
                 content.add(anchor)
 
                 content.camera = .spatialTracking
                 
             } update: { content in
+                
             }
 //            this didn't work will need to find another way to change skin.
             VStack {
