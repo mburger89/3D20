@@ -201,6 +201,9 @@
 			);
 			mainGroup = 73383CD82CFF7492007150D7;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				737AE0122E19F4CF00576F6D /* XCLocalSwiftPackageReference "../dice_skins" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 73383CE22CFF7492007150D7 /* Products */;
 			projectDirPath = "";
@@ -569,6 +572,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		737AE0122E19F4CF00576F6D /* XCLocalSwiftPackageReference "../dice_skins" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../dice_skins;
+		};
+/* End XCLocalSwiftPackageReference section */
 	};
 	rootObject = 73383CD92CFF7492007150D7 /* Project object */;
 }
