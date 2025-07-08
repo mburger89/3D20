@@ -13,7 +13,7 @@ class DiceData: ObservableObject {
     var dice_name: String = "D20"
     var dice_bool: Bool = false
     var tray_name: String = "dice_tray"
-    var dice_position: SIMD3<Float> = [0, 0.2, 0]
+    var dice_position: SIMD3<Float> = [0, 0.05, 0.08]
     var dice_type: String = "D20"
     
     func rollDice(content: inout RealityViewCameraContent) {
@@ -29,6 +29,29 @@ class DiceData: ObservableObject {
         if let die_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
             if let die = die_ent.children.first(where: { $0.name == "die" }) {
                 die_ent.removeChild(die)
+            }
+        }
+    }
+    
+    @MainActor
+    func addDice(content: inout RealityViewCameraContent) {
+        if let die_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
+            Task {
+                if let dice_entity = try? await ModelEntity(named: String(self.dice_type)) {
+                    let shapeRes: ShapeResource = try! await ShapeResource.generateConvex(from: dice_entity.model?.mesh ?? .generateBox(size: 0.10))
+                    dice_entity.name = "die"
+                    dice_entity.position = self.dice_position
+                    dice_entity.setScale(SIMD3(0.03, 0.03, 0.03), relativeTo: nil)
+                    dice_entity.components.set(PhysicsBodyComponent(shapes: [shapeRes], mass: 0.006,mode: .dynamic,))
+                    dice_entity.components.set(CollisionComponent(shapes: [shapeRes], mode: .colliding))
+                    dice_entity.physicsBody?.massProperties.inertia = SIMD3<Float>(0.5, 0.5, 0.5)
+                    dice_entity.physicsBody?.isContinuousCollisionDetectionEnabled = true
+                    dice_entity.transform.rotation = simd_quatf(
+                        angle: Float.random(in: 1.0..<180.0),
+                        axis: SIMD3(1.0, 0.0, 0.0)
+                    )
+                    die_ent.addChild(dice_entity)
+                }
             }
         }
     }

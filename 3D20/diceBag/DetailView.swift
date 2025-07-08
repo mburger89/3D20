@@ -17,7 +17,7 @@ struct DetailView: View {
         ("D06", [6.0, 0.0, 0.0]),
         ("D04", [7.5, 0.0, 0.0])
     ]
-    @State var selectedMode: Int = 1
+    @State var selectedMode: Int = 0
     
     var body: some View {
         VStack {
@@ -75,8 +75,8 @@ struct DetailView: View {
             }
             VStack{
                 Picker("Mode", selection: $selectedMode) {
-                    Text("Group").tag(1)
                     Text("Solo").tag(0)
+                    Text("Group").tag(1)
                 }.pickerStyle(.segmented).padding(.top, 10)
                 Text("Dice Data Goes Here").padding(.top, 20)
                 Spacer()

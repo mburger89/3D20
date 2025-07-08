@@ -13,33 +13,33 @@ struct diceOptions: View {
     var body: some View {
         Grid(horizontalSpacing: 20, verticalSpacing: 20){
             GridRow{
-                Button("D04"){
-                    diceData.dice_type = "D04"
+                Button(action: {diceData.dice_type = "D04"; dismiss()}){
+                    Image("D04").resizable().scaledToFit()
                 }.frame(width: 100, height: 100)
-                Button("D06") {
-                    diceData.dice_type = "D06"
+                Button(action:{diceData.dice_type = "D06"; dismiss()}) {
+                    Image("D06").resizable().scaledToFit()
                 }.frame(width: 100, height: 100)
-                Button("D08") {
-                    diceData.dice_type = "D08"
+                Button(action: {diceData.dice_type = "D08"; dismiss()}) {
+                    Image("D08").resizable().scaledToFit()
                 }.frame(width: 100, height: 100)
             }
             GridRow{
-                Button("D10"){
-                    diceData.dice_type = "D10"
+                Button(action: {diceData.dice_type = "D10"; dismiss()}){
+                    Image("D10").resizable().scaledToFit()
                 }.frame(width: 100, height: 100)
-                Button("D12") {
-                    diceData.dice_type = "D12"
+                Button(action: {diceData.dice_type = "D12"; dismiss()}) {
+                    Image("D12").resizable().scaledToFit()
                 }.frame(width: 100, height: 100)
-                Button("D20") {
-                    diceData.dice_type = "D20"
+                Button(action: {diceData.dice_type = "D20"; dismiss()}) {
+                    Image("D20").resizable().scaledToFit()
                 }.frame(width: 100, height: 100)
             }
         }
-        HStack{
-            Button("Change to \(diceData.dice_type)") {
-                dismiss()
-            }
-        }
+//        HStack{
+//            Button("Change to \(diceData.dice_type)") {
+//                dismiss()
+//            }.buttonStyle(.bordered).padding(.top, 50)
+//        }
     }
 }
 
