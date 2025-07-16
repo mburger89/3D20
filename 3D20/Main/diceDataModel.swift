@@ -12,8 +12,8 @@ import Foundation
 class DiceData: ObservableObject {
     var dice_name: String = "D20"
     var dice_bool: Bool = false
-    var tray_name: String = "dice_tray"
-    var dice_position: SIMD3<Float> = [0, 0.05, 0.04]
+    var tray_name: String = "DiceTray"
+    var dice_position: SIMD3<Float> = [0, 0.2, 0.04]
     var dice_type: String = "D20"
     
     func rollDice(content: inout RealityViewCameraContent) {
@@ -31,7 +31,7 @@ class DiceData: ObservableObject {
                 let impulse = SIMD3<Float>(
                     0, // Slight left/right randomness
                     0, // Upwards throw
-					Float.random(in: -0.0000001...0.0000001) // Forward throw
+					Float.random(in: -0.0001...0.0001) // Forward throw
                 )
                 die.applyLinearImpulse(impulse, relativeTo: nil)
                 // Optionally: Add a random angular impulse for spinning
