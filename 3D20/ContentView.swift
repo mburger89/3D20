@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var changeDie: Bool = false
     @State private var showSkinOptions: Bool = false
     @State private var showDiceOptions: Bool = false
+    @State private var changeDieSkin: Bool = false
     var body: some View {
         NavigationStack {
             ZStack {
@@ -40,7 +41,7 @@ struct ContentView: View {
                     Task {
                         if let cover = try? await ModelEntity(named: "DiceCover") {
                             let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: cover.model?.mesh ?? .generateBox(size: 1.0))
-                            cover.name = "tray"
+                            cover.name = "cover"
                             cover.setScale(SIMD3(0.10, 0.10, 0.10), relativeTo: nil)
                             cover.position = [0, 0.008, 0]
                             cover.model?.materials[0] = SimpleMaterial(color: .clear, roughness: 0.5, isMetallic: false)
@@ -63,6 +64,9 @@ struct ContentView: View {
                         diceData.removeDice(content: &content)
                         diceData.addDice(content: &content)
                     }
+                    if changeDieSkin {
+                        diceData.changeSkin(content: &content)
+                    }
                     
                 } placeholder: {
                     ProgressView()
@@ -81,7 +85,8 @@ struct ContentView: View {
                     Spacer()
                     HStack {
                         Button("Change\n Skin") {
-                            showSkinOptions.toggle()
+//                            showSkinOptions.toggle()
+                            changeDieSkin.toggle()
                         }.buttonStyle(.bordered).padding(30)
                         Spacer()
                         Button("Change\n Dice") {

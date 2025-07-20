@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		73706AA02D443DF6001C7F59 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 73706A9F2D443DF6001C7F59 /* README.md */; };
+		73B401EB2E276D6100F4A2F1 /* DiceEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 73B401EA2E276D6100F4A2F1 /* DiceEnv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73B401EB2E276D6100F4A2F1 /* DiceEnv in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +120,7 @@
 			);
 			name = 3D20;
 			packageProductDependencies = (
+				73B401EA2E276D6100F4A2F1 /* DiceEnv */,
 			);
 			productName = 3D20;
 			productReference = 73383CE12CFF7492007150D7 /* 3D20.app */;
@@ -202,7 +205,7 @@
 			mainGroup = 73383CD82CFF7492007150D7;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				737AE0122E19F4CF00576F6D /* XCLocalSwiftPackageReference "../dice_skins" */,
+				73B401E92E276D6100F4A2F1 /* XCLocalSwiftPackageReference "../DiceEnv" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 73383CE22CFF7492007150D7 /* Products */;
@@ -407,7 +410,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"3D20/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "3D20/Preview\\ Content/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = VH3VD452Q2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -441,7 +444,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"3D20/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "3D20/Preview\\ Content/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = VH3VD452Q2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -578,11 +581,18 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		737AE0122E19F4CF00576F6D /* XCLocalSwiftPackageReference "../dice_skins" */ = {
+		73B401E92E276D6100F4A2F1 /* XCLocalSwiftPackageReference "../DiceEnv" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../dice_skins;
+			relativePath = ../DiceEnv;
 		};
 /* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		73B401EA2E276D6100F4A2F1 /* DiceEnv */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DiceEnv;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 73383CD92CFF7492007150D7 /* Project object */;
 }

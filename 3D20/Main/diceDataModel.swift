@@ -7,6 +7,7 @@
 import RealityKit
 import SwiftUI
 import Foundation
+import DiceEnv
 
 @Observable
 class DiceData: ObservableObject {
@@ -71,4 +72,17 @@ class DiceData: ObservableObject {
             }
         }
     }
+    
+    @MainActor
+    func changeSkin(content: inout RealityViewCameraContent) {
+        if let die_ent = content.entities.first(where: {$0.name == "dice_anchor"}) {
+            Task {
+                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/CellShader", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
+                if let die = die_ent.children.first(where: {$0.name == "die"}) as? ModelEntity {
+                    die.model?.materials[0] = material
+                }
+            }
+        }
+    }
+//    MARK: end of class
 }
