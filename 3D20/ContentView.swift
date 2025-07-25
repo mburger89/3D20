@@ -67,16 +67,17 @@ struct ContentView: View {
                     if changeDieSkin {
                         diceData.changeSkin(content: &content)
                     }
-                    
                 } placeholder: {
                     ProgressView()
-                }.onChange(of: hasRolled) {
+                }
+                .onChange(of: hasRolled) {
                     if hasRolled { hasRolled = false }
-                }.onChange(of: changeDie) {
+                }
+                .onChange(of: changeDie) {
                     if changeDie { changeDie = false }
                 }
                 .sheet(isPresented: $showDiceOptions, onDismiss: { changeDie.toggle() }) {
-                    diceOptions(diceData: $diceData)
+                    diceOptions(diceData: $diceData).presentationDetents([.fraction(0.4)])
                 }
                 .sheet(isPresented: $showSkinOptions, onDismiss: {}) {
                     Text("Skins Coming Soon...")

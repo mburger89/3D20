@@ -9,7 +9,7 @@ import SwiftUI
 import RealityKit
 
 struct DetailView: View {
-    let diceArray: [(String, SIMD3<Float>)] = [
+    private let diceArray: [(String, SIMD3<Float>)] = [
         ("D20", [0.0, 0.0, 0.0]),
         ("D12", [1.5, 0.0, 0.0]),
         ("D10", [3.0, 0.0, 0.0]),
@@ -17,27 +17,43 @@ struct DetailView: View {
         ("D06", [6.0, 0.0, 0.0]),
         ("D04", [7.5, 0.0, 0.0])
     ]
-    @State var selectedMode: Int = 0
-    
+    @State var diceData: DiceData = DiceData()
+    @State private var selectedMode: Int = 0
+    @State private var changeDie: Bool = false
+    @State var diceName: String = "D20"
     var body: some View {
         VStack {
             if selectedMode == 0 {
                 RealityView { content in
                     content.camera = .virtual
+                    let ent = Entity()
+                    ent.name = "container"
                     do {
-                        let die = try await ModelEntity(named: "D20")
+                        let die = try await ModelEntity(named: diceName)
                         die.scale = [0.6, 0.6, 0.6]
                         die.position = [0.0, 0.0, 0.0]
-                        die.name = "D20"
+                        die.name = "die"
                         die.components.set(SpinComponent())
-                        content.add(die)
+                        ent.addChild(die)
                     } catch {
                             print(error)
                     }
-                    
+                    content.add(ent)
                 } update: { content in
-//                    if let die = content.entities.first(where: {$0.name == "D20"}) {
-//                    
+//                    if changeDie {
+                        if let current_die = content.entities.first(where: {$0.name == "container"}) {
+                            if let die_entity = current_die.children.first(where: {$0.children.count == 0}) {
+                                current_die.removeChild(die_entity)
+                            }
+                            Task {
+                                let die_temp = try await ModelEntity(named: diceName)
+                                die_temp.scale = [0.6, 0.6, 0.6]
+                                die_temp.position = [0.0, 0.0, 0.0]
+                                die_temp.name = "die"
+                                die_temp.components.set(SpinComponent())
+                                current_die.addChild(die_temp)
+                            }
+                        }
 //                    }
                 }
                 .realityViewCameraControls(.pan)
@@ -57,7 +73,7 @@ struct DetailView: View {
                                 print(error)
                             }
                         }
-    //            end of reality view
+    //          MARK: End of reality view
                 } placeholder: {
                     VStack(alignment: .center){
                        Spacer()
@@ -72,13 +88,23 @@ struct DetailView: View {
                 .realityViewCameraControls(.pan)
                 .frame(maxHeight: 400)
                 .background(.ultraThinMaterial)
+//                .onChange(of: diceData.dice_type) {
+//                        changeDie.toggle()
+//                    }
             }
-            VStack{
+            VStack( alignment: .leading){
                 Picker("Mode", selection: $selectedMode) {
                     Text("Solo").tag(0)
                     Text("Group").tag(1)
-                }.pickerStyle(.segmented).padding(.top, 10)
-                Text("Dice Data Goes Here").padding(.top, 20)
+                }.pickerStyle(.segmented).padding(.top, 10).padding(.horizontal, 20)
+                if selectedMode == 0 {
+                    Picker("Die", selection: $diceName) {
+                        ForEach(diceArray, id: \.0) {die in
+                            Text(die.0).tag(die.0)
+                        }
+                    }.pickerStyle(.segmented).padding(.top, 10).padding(.horizontal, 20)
+                }
+                Text("Dice Data Goes Here").padding(.top, 20).padding(.horizontal, 20)
                 Spacer()
             }
             .frame(width: 400)
