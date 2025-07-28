@@ -18,6 +18,10 @@ struct _3Dexp: View {
                 let anchor = Entity()
                 anchor.name = "dice_anchor"
                 content.add(anchor)
+                let light = SpotLight()
+                light.position = [0, 5, 0]
+                light.isEnabled = true
+                content.add(light)
                 diceData.addTray(content: &content)
                 diceData.addCover(content: &content)
                 diceData.addDice(content: &content)

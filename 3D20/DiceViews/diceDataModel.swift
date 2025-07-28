@@ -121,7 +121,7 @@ class DiceData: ObservableObject {
                     let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: cover.model?.mesh ?? .generateBox(size: 1.0))
                     cover.name = "cover"
                     cover.setScale(SIMD3(0.10, 0.10, 0.10), relativeTo: nil)
-                    cover.position = [0, 0.008, 0]
+                    cover.position = [0, 0.001, 0]
                     cover.model?.materials[0] = SimpleMaterial(color: .clear, roughness: 0.5, isMetallic: false)
                     cover.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
                     cover.components.set(CollisionComponent(shapes: [shapeRes],isStatic: true))
