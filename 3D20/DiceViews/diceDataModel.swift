@@ -16,7 +16,13 @@ class DiceData: ObservableObject {
     var tray_name: String = "DiceTray"
     var dice_position: SIMD3<Float> = [0, 0.2, 0.04]
     var dice_type: String = "D20"
-    var skin: String = "rainbow_1"
+    var skin: String = "clouds"
+    var arExp: Bool = true
+    var changeDieSkin: Bool = false
+    var showDiceOptions: Bool = false
+    var showSkinOptions: Bool = false
+    var hasRolled: Bool = false
+    var changeDie: Bool = false
     
     func rollDice(content: inout RealityViewCameraContent) {
         if let DieEntity = content.entities.first(where: { $0.name == "dice_anchor" }) {
@@ -55,6 +61,7 @@ class DiceData: ObservableObject {
     func addDice(content: inout RealityViewCameraContent) {
         if let die_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
             Task {
+                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/\(self.skin)", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
                 if let dice_entity = try? await ModelEntity(named: String(self.dice_type)) {
                     let shapeRes: ShapeResource = try! await ShapeResource.generateConvex(from: dice_entity.model?.mesh ?? .generateBox(size: 0.10))
                     dice_entity.name = "die"
@@ -68,6 +75,7 @@ class DiceData: ObservableObject {
                         angle: Float.random(in: 1.0..<180.0),
                         axis: SIMD3(1.0, 0.0, 0.0)
                     )
+                    dice_entity.model?.materials[0] = material
                     die_ent.addChild(dice_entity)
                 }
             }
@@ -85,5 +93,45 @@ class DiceData: ObservableObject {
             }
         }
     }
+    
+    @MainActor
+    func addTray(content: inout RealityViewCameraContent) {
+        if let tray_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
+            Task {
+                if let tray = try? await ModelEntity(named: self.tray_name) {
+                    let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: tray.model?.mesh ?? .generateBox(size: 1.0))
+                    tray.name = "tray"
+                    tray.setScale(SIMD3(0.10, 0.10, 0.10), relativeTo: nil)
+                    tray.position = [0, 0, 0]
+                    tray.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
+                    tray.components.set(CollisionComponent(shapes: [shapeRes],isStatic: true))
+                    tray.collision?.mode = .colliding
+                    tray.physicsBody?.isContinuousCollisionDetectionEnabled = true
+                    tray_ent.addChild(tray)
+                }
+            }
+        }
+    }
+    
+    @MainActor
+    func addCover(content: inout RealityViewCameraContent) {
+        if let tray_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
+            Task {
+                if let cover = try? await ModelEntity(named: "DiceCover") {
+                    let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: cover.model?.mesh ?? .generateBox(size: 1.0))
+                    cover.name = "cover"
+                    cover.setScale(SIMD3(0.10, 0.10, 0.10), relativeTo: nil)
+                    cover.position = [0, 0.008, 0]
+                    cover.model?.materials[0] = SimpleMaterial(color: .clear, roughness: 0.5, isMetallic: false)
+                    cover.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
+                    cover.components.set(CollisionComponent(shapes: [shapeRes],isStatic: true))
+                    cover.collision?.mode = .colliding
+                    cover.physicsBody?.isContinuousCollisionDetectionEnabled = true
+                    tray_ent.addChild(cover)
+                }
+            }
+        }
+    }
+    
 //    MARK: end of class
 }
