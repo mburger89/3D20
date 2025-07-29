@@ -14,14 +14,12 @@ struct _3Dexp: View {
         ZStack {
             RealityView { content in
                 content.camera = .virtual
-
+                content.renderingEffects.motionBlur = .disabled
+                content.renderingEffects.depthOfField = .disabled
                 let anchor = Entity()
                 anchor.name = "dice_anchor"
                 content.add(anchor)
-                let light = SpotLight()
-                light.position = [0, 5, 0]
-                light.isEnabled = true
-                content.add(light)
+
                 diceData.addTray(content: &content)
                 diceData.addCover(content: &content)
                 diceData.addDice(content: &content)

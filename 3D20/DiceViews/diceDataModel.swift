@@ -122,7 +122,7 @@ class DiceData: ObservableObject {
                     cover.name = "cover"
                     cover.setScale(SIMD3(0.10, 0.10, 0.10), relativeTo: nil)
                     cover.position = [0, 0.001, 0]
-                    cover.model?.materials[0] = SimpleMaterial(color: .clear, roughness: 0.5, isMetallic: false)
+                    cover.model?.materials[0] = SimpleMaterial(color: .clear, roughness: 0.0, isMetallic: false)
                     cover.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
                     cover.components.set(CollisionComponent(shapes: [shapeRes],isStatic: true))
                     cover.collision?.mode = .colliding
