@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Skins_icon Copy.png",
+      "filename" : "D20_steelDarkPink_persp.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Skins_icon Copy@2x.png",
+      "filename" : "D20_steelDarkPink_persp 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Skins_icon Copy@3x.png",
+      "filename" : "D20_steelDarkPink_persp 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

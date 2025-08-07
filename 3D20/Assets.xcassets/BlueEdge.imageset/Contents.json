@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Skins_icon.png",
+      "filename" : "D20_BlueEdge_persp.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Skins_icon@2x.png",
+      "filename" : "D20_BlueEdge_persp 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Skins_icon@3x.png",
+      "filename" : "D20_BlueEdge_persp 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
