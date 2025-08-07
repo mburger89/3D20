@@ -35,11 +35,6 @@ struct diceOptions: View {
                 }.frame(width: 100, height: 100)
             }
         }
-//        HStack{
-//            Button("Change to \(diceData.dice_type)") {
-//                dismiss()
-//            }.buttonStyle(.bordered).padding(.top, 50)
-//        }
     }
 }
 

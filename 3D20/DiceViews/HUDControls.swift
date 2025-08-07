@@ -20,8 +20,7 @@ struct HUDControls: View {
             Spacer()
             HStack {
                 Button("Change\n Skin") {
-//                            showSkinOptions.toggle()
-                    diceData.changeDieSkin.toggle()
+                    diceData.showSkinOptions.toggle()
                 }.buttonStyle(.bordered).padding(30)
                 Spacer()
                 Button("Change\n Dice") {
@@ -38,7 +37,7 @@ struct HUDControls: View {
                 }.frame(height: 80).scaledToFit()
                     .padding(.horizontal, 30)
                 NavigationLink(destination: DetailView()) {
-                    Image("skins").font(.largeTitle)
+                    Image("dice.skins").scaleEffect(3.0).padding(.top,10).padding(.horizontal,10)
                 }
             }.padding(.bottom, 50)
         }

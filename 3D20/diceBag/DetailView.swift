@@ -7,6 +7,7 @@
 import Foundation
 import SwiftUI
 import RealityKit
+import DiceEnv
 
 struct DetailView: View {
     private let diceArray: [(String, SIMD3<Float>)] = [
@@ -29,10 +30,12 @@ struct DetailView: View {
                     let ent = Entity()
                     ent.name = "container"
                     do {
+                        let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/\(diceData.skin)/\(diceData.skin)_\(diceData.dice_type)", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
                         let die = try await ModelEntity(named: diceName)
                         die.scale = [0.6, 0.6, 0.6]
                         die.position = [0.0, 0.0, 0.0]
                         die.name = "die"
+                        die.model?.materials[0] = material
                         die.components.set(SpinComponent())
                         ent.addChild(die)
                     } catch {
@@ -46,6 +49,7 @@ struct DetailView: View {
                                 current_die.removeChild(die_entity)
                             }
                             Task {
+                                
                                 let die_temp = try await ModelEntity(named: diceName)
                                 die_temp.scale = [0.6, 0.6, 0.6]
                                 die_temp.position = [0.0, 0.0, 0.0]

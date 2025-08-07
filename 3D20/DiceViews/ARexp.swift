@@ -13,16 +13,18 @@ struct ARexp: View {
     var body: some View {
         ZStack {
             RealityView { content in
+                content.camera = .spatialTracking
                 // Create horizontal plane anchor for the content
                 let anchor = AnchorEntity(
                     .plane(.horizontal, classification: .any, minimumBounds: SIMD2<Float>(0.001,0.001))
                 )
                 anchor.name = "dice_anchor"
                 content.add(anchor)
-                content.camera = .spatialTracking
+                
                 diceData.addTray(content: &content)
                 diceData.addCover(content: &content)
                 diceData.addDice(content: &content)
+                
             } update: { content in
                 if diceData.hasRolled {
                     diceData.rollDice(content: &content)
@@ -47,8 +49,8 @@ struct ARexp: View {
             .sheet(isPresented: $diceData.showDiceOptions, onDismiss: { diceData.changeDie.toggle() }) {
                 diceOptions(diceData: $diceData).presentationDetents([.fraction(0.4)])
             }
-            .sheet(isPresented: $diceData.showSkinOptions, onDismiss: {}) {
-                Text("Skins Coming Soon...")
+            .sheet(isPresented: $diceData.showSkinOptions, onDismiss: { diceData.changeDieSkin.toggle() }) {
+                DiceSkins(dD: $diceData).presentationDetents([.fraction(0.4)])
             }
            HUDControls(diceData: diceData)
         }.edgesIgnoringSafeArea(.all)

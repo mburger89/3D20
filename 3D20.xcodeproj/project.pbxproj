@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7318E7542E396CB600FD1EFC /* DiceEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 73B401EA2E276D6100F4A2F1 /* DiceEnv */; };
 		73706AA02D443DF6001C7F59 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 73706A9F2D443DF6001C7F59 /* README.md */; };
 		73E192D02E347BBC0081A328 /* DiceEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 73E192CF2E347BBC0081A328 /* DiceEnv */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7318E7542E396CB600FD1EFC /* DiceEnv in Frameworks */,
 				73E192D02E347BBC0081A328 /* DiceEnv in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

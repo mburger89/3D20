@@ -16,7 +16,7 @@ class DiceData: ObservableObject {
     var tray_name: String = "DiceTray"
     var dice_position: SIMD3<Float> = [0, 0.2, 0.04]
     var dice_type: String = "D20"
-    var skin: String = "clouds"
+    var skin: String = "Clouds"
     var arExp: Bool = true
     var changeDieSkin: Bool = false
     var showDiceOptions: Bool = false
@@ -61,7 +61,7 @@ class DiceData: ObservableObject {
     func addDice(content: inout RealityViewCameraContent) {
         if let die_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
             Task {
-                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/\(self.skin)", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
+                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/\(self.skin)/\(self.skin)_\(self.dice_type)", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
                 if let dice_entity = try? await ModelEntity(named: String(self.dice_type)) {
                     let shapeRes: ShapeResource = try! await ShapeResource.generateConvex(from: dice_entity.model?.mesh ?? .generateBox(size: 0.10))
                     dice_entity.name = "die"
@@ -86,11 +86,12 @@ class DiceData: ObservableObject {
     func changeSkin(content: inout RealityViewCameraContent) {
         if let die_ent = content.entities.first(where: {$0.name == "dice_anchor"}) {
             Task {
-                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/\(self.skin)", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
+                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/\(self.skin)/\(self.skin)_\(self.dice_type)", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
                 if let die = die_ent.children.first(where: {$0.name == "die"}) as? ModelEntity {
                     die.model?.materials[0] = material
                 }
             }
+            self.changeDieSkin = false
         }
     }
     

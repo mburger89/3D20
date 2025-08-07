@@ -51,8 +51,8 @@ struct _3Dexp: View {
             .sheet(isPresented: $diceData.showDiceOptions, onDismiss: { diceData.changeDie.toggle() }) {
                 diceOptions(diceData: $diceData).presentationDetents([.fraction(0.4)])
             }
-            .sheet(isPresented: $diceData.showSkinOptions, onDismiss: {}) {
-                Text("Skins Coming Soon...")
+            .sheet(isPresented: $diceData.showSkinOptions, onDismiss: {diceData.changeDieSkin.toggle()}) {
+                DiceSkins(dD: $diceData).presentationDetents([.fraction(0.4)])
             }
 //            MARK: The HUD
             HUDControls(diceData: diceData)
