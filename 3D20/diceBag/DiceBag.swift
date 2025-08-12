@@ -9,7 +9,15 @@ import SwiftUI
 
 struct DiceBag: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            LazyVGrid(columns: [GridItem(), GridItem()]) {
+                ForEach(SDArray, id: \.id) { skin in
+                    NavigationLink(destination: DetailView(skinData: skin)) {
+                        DiceSkin(diceName: skin.name, displayName: skin.displayName)
+                    }
+                }
+            }.padding(.horizontal, 10)
+        }.navigationTitle("Dice bag")
     }
 }
 

@@ -15,7 +15,6 @@ struct HUDControls: View {
                 Text("AR").tag(true)
                 Text("3D").tag(false)
             }.pickerStyle(.segmented)
-//                .padding(.top, 50)
                 .frame(width: 200, height: 200)
             Spacer()
             HStack {
@@ -36,8 +35,11 @@ struct HUDControls: View {
                     diceData.dice_position = [0, 0.1, 0.08]
                 }.frame(height: 80).scaledToFit()
                     .padding(.horizontal, 30)
-                NavigationLink(destination: DetailView()) {
-                    Image("dice.skins").scaleEffect(3.0).padding(.top,10).padding(.horizontal,10)
+                NavigationLink(destination: DiceBag()) {
+                    Image("dice.skins")
+                        .scaleEffect(3.0)
+                        .padding(.top,10)
+                        .padding(.horizontal, 10)
                 }
             }.padding(.bottom, 50)
         }

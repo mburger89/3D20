@@ -10,7 +10,7 @@ import SwiftUI
 import RealityKit
 
 struct ContentView: View {
-    @State var diceData: DiceData = DiceData()
+    @State var diceData = DiceData()
     var body: some View {
         NavigationStack {
             if diceData.arExp {

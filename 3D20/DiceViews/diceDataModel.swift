@@ -11,18 +11,19 @@ import DiceEnv
 
 @Observable
 class DiceData: ObservableObject {
-    var dice_name: String = "D20"
     var dice_bool: Bool = false
     var tray_name: String = "DiceTray"
     var dice_position: SIMD3<Float> = [0, 0.2, 0.04]
     var dice_type: String = "D20"
-    var skin: String = "Clouds"
+    var skin: String = "SteelDarkAged"
     var arExp: Bool = true
     var changeDieSkin: Bool = false
+    var changeTraySkin: Bool = false
     var showDiceOptions: Bool = false
     var showSkinOptions: Bool = false
     var hasRolled: Bool = false
     var changeDie: Bool = false
+    var traySkin: String = "woodAcajou"
     
     func rollDice(content: inout RealityViewCameraContent) {
         if let DieEntity = content.entities.first(where: { $0.name == "dice_anchor" }) {
@@ -134,5 +135,17 @@ class DiceData: ObservableObject {
         }
     }
     
+    @MainActor
+    func changeTraySkin(content: inout RealityViewCameraContent) {
+        if let die_ent = content.entities.first(where: {$0.name == "dice_anchor"}) {
+            Task {
+                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
+                if let tray = die_ent.children.first(where: {$0.name == "tray"}) as? ModelEntity {
+                    tray.model?.materials[0] = material
+                }
+            }
+            self.changeTraySkin = false
+        }
+    }
 //    MARK: end of class
 }

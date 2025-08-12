@@ -36,6 +36,9 @@ struct ARexp: View {
                 if diceData.changeDieSkin {
                     diceData.changeSkin(content: &content)
                 }
+                if diceData.changeTraySkin {
+                    diceData.changeTraySkin(content: &content)
+                }
             } placeholder: {
                 ProgressView()
             }
@@ -49,8 +52,8 @@ struct ARexp: View {
             .sheet(isPresented: $diceData.showDiceOptions, onDismiss: { diceData.changeDie.toggle() }) {
                 diceOptions(diceData: $diceData).presentationDetents([.fraction(0.4)])
             }
-            .sheet(isPresented: $diceData.showSkinOptions, onDismiss: { diceData.changeDieSkin.toggle() }) {
-                DiceSkins(dD: $diceData).presentationDetents([.fraction(0.4)])
+            .sheet(isPresented: $diceData.showSkinOptions) {
+                Skins(dD: diceData).presentationDetents([.fraction(0.4)])
             }
            HUDControls(diceData: diceData)
         }.edgesIgnoringSafeArea(.all)

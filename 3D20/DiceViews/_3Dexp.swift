@@ -52,7 +52,7 @@ struct _3Dexp: View {
                 diceOptions(diceData: $diceData).presentationDetents([.fraction(0.4)])
             }
             .sheet(isPresented: $diceData.showSkinOptions, onDismiss: {diceData.changeDieSkin.toggle()}) {
-                DiceSkins(dD: $diceData).presentationDetents([.fraction(0.4)])
+                Skins(dD: diceData).presentationDetents([.fraction(0.4)])
             }
 //            MARK: The HUD
             HUDControls(diceData: diceData)

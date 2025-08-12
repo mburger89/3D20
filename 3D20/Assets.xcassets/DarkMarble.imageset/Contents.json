@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "D20_darkMarble_persp.png",
+      "filename" : "D20_darkMarble_cycles_persp.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "D20_darkMarble_persp 1.png",
+      "filename" : "D20_darkMarble_cycles_persp 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "D20_darkMarble_persp 2.png",
+      "filename" : "D20_darkMarble_cycles_persp 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
