@@ -20,7 +20,11 @@ struct Skins: View {
             ScrollView {
                 LazyVGrid(columns: [GridItem(),GridItem(),GridItem()]) {
                     ForEach(SDArray, id: \.id) { die in
-                        Button(action: {dD.skin = die.name; dismiss() }) {
+                        Button(action: {
+                            dD.skin = die.name;
+                            dD.changeDieSkin.toggle();
+                            dismiss()
+                        }) {
                             Image(die.name)
                                 .resizable()
                                 .frame(width: 100, height: 100)
@@ -30,12 +34,15 @@ struct Skins: View {
                 }
             }
             .padding(.top, 20).padding(.horizontal, 20)
-            .onDisappear(perform: {dD.changeDieSkin.toggle()})
         } else {
             ScrollView {
                 LazyVGrid(columns: [GridItem(),GridItem(),GridItem()]) {
                     ForEach(traySkins, id: \.id) { t in
-                        Button(action: {dD.traySkin = t.name; dismiss() }) {
+                        Button(action: {
+                            dD.traySkin = t.name;
+                            dD.changeTraySkin.toggle();
+                            dismiss()
+                        }) {
 //                            Image(t.name)
 //                                .resizable()
 //                                .frame(width: 100, height: 100)
@@ -47,7 +54,6 @@ struct Skins: View {
             }
             .padding(.top, 20)
             .padding(.horizontal, 20)
-            .onDisappear(perform: {dD.changeTraySkin.toggle()})
         }
         
 //   end view
