@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7318E7542E396CB600FD1EFC /* DiceEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 73B401EA2E276D6100F4A2F1 /* DiceEnv */; };
 		73706AA02D443DF6001C7F59 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 73706A9F2D443DF6001C7F59 /* README.md */; };
-		73B401EB2E276D6100F4A2F1 /* DiceEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 73B401EA2E276D6100F4A2F1 /* DiceEnv */; };
+		7391EF7A2E4D3AA100FFED64 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7391EF792E4D3AA100FFED64 /* Launch Screen.storyboard */; };
+		73E192D02E347BBC0081A328 /* DiceEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 73E192CF2E347BBC0081A328 /* DiceEnv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +35,7 @@
 		73383CF12CFF7494007150D7 /* 3D20Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 3D20Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		73383CFB2CFF7494007150D7 /* 3D20UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 3D20UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		73706A9F2D443DF6001C7F59 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7391EF792E4D3AA100FFED64 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -58,7 +61,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73B401EB2E276D6100F4A2F1 /* DiceEnv in Frameworks */,
+				7318E7542E396CB600FD1EFC /* DiceEnv in Frameworks */,
+				73E192D02E347BBC0081A328 /* DiceEnv in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,10 +86,12 @@
 		73383CD82CFF7492007150D7 = {
 			isa = PBXGroup;
 			children = (
+				7391EF792E4D3AA100FFED64 /* Launch Screen.storyboard */,
 				73706A9F2D443DF6001C7F59 /* README.md */,
 				73383CE32CFF7492007150D7 /* 3D20 */,
 				73383CF42CFF7494007150D7 /* 3D20Tests */,
 				73383CFE2CFF7494007150D7 /* 3D20UITests */,
+				73E192CE2E347B960081A328 /* Frameworks */,
 				73383CE22CFF7492007150D7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -98,6 +104,13 @@
 				73383CFB2CFF7494007150D7 /* 3D20UITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		73E192CE2E347B960081A328 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -114,6 +127,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				73E192CD2E347B6F0081A328 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				73383CE32CFF7492007150D7 /* 3D20 */,
@@ -121,6 +135,7 @@
 			name = 3D20;
 			packageProductDependencies = (
 				73B401EA2E276D6100F4A2F1 /* DiceEnv */,
+				73E192CF2E347BBC0081A328 /* DiceEnv */,
 			);
 			productName = 3D20;
 			productReference = 73383CE12CFF7492007150D7 /* 3D20.app */;
@@ -224,6 +239,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7391EF7A2E4D3AA100FFED64 /* Launch Screen.storyboard in Resources */,
 				73706AA02D443DF6001C7F59 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,6 +294,10 @@
 			isa = PBXTargetDependency;
 			target = 73383CE02CFF7492007150D7 /* 3D20 */;
 			targetProxy = 73383CFC2CFF7494007150D7 /* PBXContainerItemProxy */;
+		};
+		73E192CD2E347B6F0081A328 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 73E192CC2E347B6F0081A328 /* DiceEnv */;
 		};
 /* End PBXTargetDependency section */
 
@@ -408,6 +428,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "3D20/Preview\\ Content/Preview\\ Assets.xcassets";
@@ -420,15 +441,16 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mb.unicornlabs.d20;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -442,6 +464,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "3D20/Preview\\ Content/Preview\\ Assets.xcassets";
@@ -454,15 +477,16 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mb.unicornlabs.d20;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -589,6 +613,15 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		73B401EA2E276D6100F4A2F1 /* DiceEnv */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DiceEnv;
+		};
+		73E192CC2E347B6F0081A328 /* DiceEnv */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 73B401E92E276D6100F4A2F1 /* XCLocalSwiftPackageReference "../DiceEnv" */;
+			productName = DiceEnv;
+		};
+		73E192CF2E347BBC0081A328 /* DiceEnv */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DiceEnv;
 		};
