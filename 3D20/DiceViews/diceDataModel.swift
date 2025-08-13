@@ -12,7 +12,7 @@ import DiceEnv
 @Observable
 class DiceData: ObservableObject {
     var dice_bool: Bool = false
-    var tray_name: String = "DiceTray"
+    var tray_name: String = "diceTray"
     var dice_position: SIMD3<Float> = [0, 0.2, 0.04]
     var dice_type: String = "D20"
     var skin: String = "SteelDarkAged"
@@ -100,7 +100,8 @@ class DiceData: ObservableObject {
     func addTray(content: inout RealityViewCameraContent) {
         if let tray_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
             Task {
-                if let tray = try? await ModelEntity(named: self.tray_name) {
+                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
+                if let tray = try? await ModelEntity(named: "diceTray") {
                     let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: tray.model?.mesh ?? .generateBox(size: 1.0))
                     tray.name = "tray"
                     tray.setScale(SIMD3(0.10, 0.10, 0.10), relativeTo: nil)
@@ -109,6 +110,7 @@ class DiceData: ObservableObject {
                     tray.components.set(CollisionComponent(shapes: [shapeRes],isStatic: true))
                     tray.collision?.mode = .colliding
                     tray.physicsBody?.isContinuousCollisionDetectionEnabled = true
+                    tray.model?.materials[0] = material
                     tray_ent.addChild(tray)
                 }
             }
@@ -122,7 +124,7 @@ class DiceData: ObservableObject {
                 if let cover = try? await ModelEntity(named: "DiceCover") {
                     let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: cover.model?.mesh ?? .generateBox(size: 1.0))
                     cover.name = "cover"
-                    cover.setScale(SIMD3(0.10, 0.10, 0.10), relativeTo: nil)
+                    cover.setScale(SIMD3(0.0010, 0.0010, 0.0010), relativeTo: nil)
                     cover.position = [0, 0.001, 0]
                     cover.model?.materials[0] = SimpleMaterial(color: .clear, roughness: 0.0, isMetallic: false)
                     cover.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))

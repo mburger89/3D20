@@ -38,6 +38,9 @@ struct _3Dexp: View {
                 if diceData.changeDieSkin {
                     diceData.changeSkin(content: &content)
                 }
+                if diceData.changeTraySkin {
+                    diceData.changeTraySkin(content: &content)
+                }
             } placeholder: {
                 ProgressView()
             }
@@ -51,7 +54,7 @@ struct _3Dexp: View {
             .sheet(isPresented: $diceData.showDiceOptions, onDismiss: { diceData.changeDie.toggle() }) {
                 diceOptions(diceData: $diceData).presentationDetents([.fraction(0.4)])
             }
-            .sheet(isPresented: $diceData.showSkinOptions, onDismiss: {diceData.changeDieSkin.toggle()}) {
+            .sheet(isPresented: $diceData.showSkinOptions) {
                 Skins(dD: diceData).presentationDetents([.fraction(0.4)])
             }
 //            MARK: The HUD
