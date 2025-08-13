@@ -2,5 +2,6 @@ Build
 Build/*
 xcuserdata
 *.xcuserdata
+*.xcuserdata/*
 xcuserdata/*
 .DS_Store
