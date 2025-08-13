@@ -14,6 +14,8 @@ struct ARexp: View {
         ZStack {
             RealityView { content in
                 content.camera = .spatialTracking
+                content.renderingEffects.motionBlur = .disabled
+                content.renderingEffects.depthOfField = .disabled
                 // Create horizontal plane anchor for the content
                 let anchor = AnchorEntity(
                     .plane(.horizontal, classification: .any, minimumBounds: SIMD2<Float>(0.001,0.001))
