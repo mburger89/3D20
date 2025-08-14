@@ -13,7 +13,7 @@ import DiceEnv
 class DiceData: ObservableObject {
     var dice_bool: Bool = false
     var tray_name: String = "diceTray"
-    var dice_position: SIMD3<Float> = [0, 0.2, 0.04]
+    var dice_position: SIMD3<Float> = [0, 0.24, 0.0]
     var dice_type: String = "D20"
     var skin: String = "SteelDarkAged"
     var arExp: Bool = true

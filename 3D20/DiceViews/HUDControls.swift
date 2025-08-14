@@ -32,7 +32,7 @@ struct HUDControls: View {
                 }
                 Button("\(Image("WoodDie"))") {
                     diceData.hasRolled.toggle()
-                    diceData.dice_position = [0, 0.1, 0.08]
+                    diceData.dice_position = [0, 0.15, 0.0]
                 }.frame(height: 80).scaledToFit()
                     .padding(.horizontal, 30)
                 NavigationLink(destination: DiceBag()) {
