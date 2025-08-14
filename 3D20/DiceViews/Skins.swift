@@ -43,11 +43,12 @@ struct Skins: View {
                             dD.changeTraySkin.toggle();
                             dismiss()
                         }) {
-//                            Image(t.name)
-//                                .resizable()
-//                                .frame(width: 100, height: 100)
-//                                .foregroundColor(.secondary)
-                            Text(t.name)
+                            Image("tray_\(t.name)")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 120, height: 80)
+                                .foregroundColor(.secondary)
+                            
                         }
                     }
                 }
