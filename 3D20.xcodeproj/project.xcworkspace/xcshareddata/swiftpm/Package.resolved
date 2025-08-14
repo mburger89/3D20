@@ -1,0 +1,15 @@
+{
+  "originHash" : "2974378d8178079535c1ba26fcf6a1ff7bdda600247fb1dc4810f99a6b68a37a",
+  "pins" : [
+    {
+      "identity" : "diceenv",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mburger89/DiceEnv.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d36fab31ec2e7693197b21d3d6124ee62f860b98"
+      }
+    }
+  ],
+  "version" : 3
+}

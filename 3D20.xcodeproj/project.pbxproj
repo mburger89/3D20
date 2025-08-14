@@ -10,6 +10,8 @@
 		7318E7542E396CB600FD1EFC /* DiceEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 73B401EA2E276D6100F4A2F1 /* DiceEnv */; };
 		73706AA02D443DF6001C7F59 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 73706A9F2D443DF6001C7F59 /* README.md */; };
 		7391EF7A2E4D3AA100FFED64 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7391EF792E4D3AA100FFED64 /* Launch Screen.storyboard */; };
+		73A102C22E4D77E300740E8F /* DiceEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 73A102C12E4D77E300740E8F /* DiceEnv */; };
+		73A102C52E4D788D00740E8F /* DiceEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 73A102C42E4D788D00740E8F /* DiceEnv */; };
 		73E192D02E347BBC0081A328 /* DiceEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 73E192CF2E347BBC0081A328 /* DiceEnv */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +63,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73A102C22E4D77E300740E8F /* DiceEnv in Frameworks */,
+				73A102C52E4D788D00740E8F /* DiceEnv in Frameworks */,
 				7318E7542E396CB600FD1EFC /* DiceEnv in Frameworks */,
 				73E192D02E347BBC0081A328 /* DiceEnv in Frameworks */,
 			);
@@ -127,7 +131,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				73E192CD2E347B6F0081A328 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				73383CE32CFF7492007150D7 /* 3D20 */,
@@ -136,6 +139,8 @@
 			packageProductDependencies = (
 				73B401EA2E276D6100F4A2F1 /* DiceEnv */,
 				73E192CF2E347BBC0081A328 /* DiceEnv */,
+				73A102C12E4D77E300740E8F /* DiceEnv */,
+				73A102C42E4D788D00740E8F /* DiceEnv */,
 			);
 			productName = 3D20;
 			productReference = 73383CE12CFF7492007150D7 /* 3D20.app */;
@@ -220,7 +225,7 @@
 			mainGroup = 73383CD82CFF7492007150D7;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				73B401E92E276D6100F4A2F1 /* XCLocalSwiftPackageReference "../DiceEnv" */,
+				73A102C32E4D788D00740E8F /* XCRemoteSwiftPackageReference "DiceEnv" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 73383CE22CFF7492007150D7 /* Products */;
@@ -294,10 +299,6 @@
 			isa = PBXTargetDependency;
 			target = 73383CE02CFF7492007150D7 /* 3D20 */;
 			targetProxy = 73383CFC2CFF7494007150D7 /* PBXContainerItemProxy */;
-		};
-		73E192CD2E347B6F0081A328 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 73E192CC2E347B6F0081A328 /* DiceEnv */;
 		};
 /* End PBXTargetDependency section */
 
@@ -604,21 +605,29 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		73B401E92E276D6100F4A2F1 /* XCLocalSwiftPackageReference "../DiceEnv" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../DiceEnv;
+/* Begin XCRemoteSwiftPackageReference section */
+		73A102C32E4D788D00740E8F /* XCRemoteSwiftPackageReference "DiceEnv" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mburger89/DiceEnv.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
 		};
-/* End XCLocalSwiftPackageReference section */
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		73B401EA2E276D6100F4A2F1 /* DiceEnv */ = {
+		73A102C12E4D77E300740E8F /* DiceEnv */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DiceEnv;
 		};
-		73E192CC2E347B6F0081A328 /* DiceEnv */ = {
+		73A102C42E4D788D00740E8F /* DiceEnv */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 73B401E92E276D6100F4A2F1 /* XCLocalSwiftPackageReference "../DiceEnv" */;
+			package = 73A102C32E4D788D00740E8F /* XCRemoteSwiftPackageReference "DiceEnv" */;
+			productName = DiceEnv;
+		};
+		73B401EA2E276D6100F4A2F1 /* DiceEnv */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = DiceEnv;
 		};
 		73E192CF2E347BBC0081A328 /* DiceEnv */ = {
