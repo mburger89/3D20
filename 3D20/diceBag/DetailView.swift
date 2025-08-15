@@ -30,6 +30,8 @@ struct DetailView: View {
             if selectedMode == 0 {
                 RealityView { content in
                     content.camera = .virtual
+                    content.renderingEffects.motionBlur = .disabled
+                    content.renderingEffects.depthOfField = .disabled
                     let ent = Entity()
                     ent.name = "container"
                     do {
@@ -86,6 +88,8 @@ struct DetailView: View {
             } else {
                 RealityView { content in
                     content.camera = .virtual
+                    content.renderingEffects.motionBlur = .disabled
+                    content.renderingEffects.depthOfField = .disabled
                     for dice in diceArray {
                         do {
                             let material: ShaderGraphMaterial = try await ShaderGraphMaterial(
