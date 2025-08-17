@@ -53,7 +53,7 @@ let traySkins: [SD] = [
     SD(name: "marbleVeined"),
     SD(name: "marbleVerdiAlpi"),
     SD(name: "metalCyborg"),
-    SD(name: "paintedBrushed"),
+    SD(name: "paintBrushed"),
     SD(name: "paintRoll"),
     SD(name: "plasticComposite"),
     SD(name: "plasticUsed"),
