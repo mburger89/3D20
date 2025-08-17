@@ -39,7 +39,7 @@ public struct SpinComponent: Component, Codable {
         self.rotationsPerSecond = try container.decode(Float.self, forKey: .rotationsPerSecond)
     }
 
-    init(axis: SIMD3<Float> = .init(1, 0, 0),rotationsPerSecond: Float = 0.1 ) {
+    init(axis: SIMD3<Float> = .init(0, 1, 0),rotationsPerSecond: Float = 0.1 ) {
         self.axis = axis
         self.rotationsPerSecond = rotationsPerSecond
         Self.registerSystem()
