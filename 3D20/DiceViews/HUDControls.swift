@@ -12,8 +12,8 @@ struct HUDControls: View {
     var body: some View {
         VStack {
             Picker("ViewMode", selection: $diceData.arExp){
-                Text("AR").tag(true)
                 Text("3D").tag(false)
+                Text("AR").tag(true)
             }.pickerStyle(.segmented)
                 .frame(width: 200, height: 200)
             Spacer()

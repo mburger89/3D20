@@ -60,7 +60,6 @@ let traySkins: [SD] = [
     SD(name: "plasticUsedSoft"),
     SD(name: "rubberDry"),
     SD(name: "rubberRaw"),
-//    SD(name: "sciFiSurface02"),
     SD(name: "steelDarkAged"),
     SD(name: "steelScratched"),
     SD(name: "stoneTravertine"),

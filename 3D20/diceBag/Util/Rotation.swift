@@ -28,9 +28,9 @@ internal class SpinSystem: System {
 /// A component that spins an entity indefinitely.
 public struct SpinComponent: Component, Codable {
     /// The axis to spin around in local space.
-    var axis: SIMD3<Float> = [0, 1, 0]
+    var axis: SIMD3<Float>
     /// The number of full rotations to perform per second.
-    var rotationsPerSecond: Float = 0.25
+    var rotationsPerSecond: Float = 0.1
 
     public init(from decoder: any Decoder) throws {
         Self.registerSystem()
@@ -39,7 +39,9 @@ public struct SpinComponent: Component, Codable {
         self.rotationsPerSecond = try container.decode(Float.self, forKey: .rotationsPerSecond)
     }
 
-    init() {
+    init(axis: SIMD3<Float> = .init(1, 0, 0),rotationsPerSecond: Float = 0.1 ) {
+        self.axis = axis
+        self.rotationsPerSecond = rotationsPerSecond
         Self.registerSystem()
     }
 

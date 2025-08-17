@@ -16,7 +16,7 @@ class DiceData: ObservableObject {
     var dice_position: SIMD3<Float> = [0, 0.24, 0.0]
     var dice_type: String = "D20"
     var skin: String = "SteelDarkAged"
-    var arExp: Bool = true
+    var arExp: Bool = false
     var changeDieSkin: Bool = false
     var changeTraySkin: Bool = false
     var showDiceOptions: Bool = false
