@@ -32,6 +32,7 @@ struct DetailView: View {
                     content.camera = .virtual
                     content.renderingEffects.motionBlur = .disabled
                     content.renderingEffects.depthOfField = .disabled
+                    
                     let ent = Entity()
                     ent.name = "container"
                     do {
