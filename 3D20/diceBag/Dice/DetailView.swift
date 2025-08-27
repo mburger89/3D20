@@ -9,16 +9,19 @@ import SwiftUI
 import RealityKit
 import DiceEnv
 
+
+
+
 struct DetailView: View {
     var skinData: SD
     
-    private let diceArray: [(String, SIMD3<Float>)] = [
-        ("D20", [0.0, 0.0, 0.0]),
-        ("D12", [1.5, 0.0, 0.0]),
-        ("D10", [3.0, 0.0, 0.0]),
-        ("D08", [4.5, 0.0, 0.0]),
-        ("D06", [6.0, 0.0, 0.0]),
-        ("D04", [7.5, 0.0, 0.0])
+    private let diceArray: [String] = [
+        "D20",
+        "D12",
+        "D10",
+        "D08",
+        "D06",
+        "D04"
     ]
     @State private var selectedMode: Int = 0
     @State private var changeDie: Bool = false
@@ -91,22 +94,21 @@ struct DetailView: View {
                     content.camera = .virtual
                     content.renderingEffects.motionBlur = .disabled
                     content.renderingEffects.depthOfField = .disabled
-                    for dice in diceArray {
-                        do {
-                            let material: ShaderGraphMaterial = try await ShaderGraphMaterial(
-                                named: "/Root/\(skinData.name)/\(skinData.name)_\(dice.0)",
-                                from: "Scene.usda",
-                                in: DiceEnv.diceEnvBundle
-                            )
-                            let die = try await ModelEntity(named: dice.0)
-                            die.scale = [0.6, 0.6, 0.6]
-                            die.position = dice.1
-                            die.name = dice.0
-                            die.model?.materials[0] = material
-                            content.add(die)
-                        } catch {
-                            print(error)
+                    
+                    do {
+                        let skins = await loadSkins()
+                        let diceCol = try await Entity(named: "diceCollection", in: DiceEnv.diceEnvBundle)
+                        diceCol.scale = [35,35,35]
+                        diceCol.position = [0.0,-0.5,0.0]
+                        diceCol.name = "Container"
+                        diceCol.children[0].children.forEach { die in
+                            if die.name != "D100" {
+                                (die as! ModelEntity).model?.materials[0] = skins[die.name] ?? SimpleMaterial()
+                            }
                         }
+                        content.add(diceCol)
+                    } catch {
+                        print(error)
                     }
 //          MARK: End of reality view
                 } placeholder: {
@@ -120,7 +122,7 @@ struct DetailView: View {
                         Spacer()
                     }
                 }
-                .realityViewCameraControls(.pan)
+                .realityViewCameraControls(.orbit)
                 .frame(maxHeight: 400)
                 .background(.ultraThinMaterial)
             }
@@ -131,8 +133,8 @@ struct DetailView: View {
                 }.pickerStyle(.segmented).padding(.top, 10)
                 if selectedMode == 0 {
                     Picker("Die", selection: $diceName) {
-                        ForEach(diceArray, id: \.0) {die in
-                            Text(die.0).tag(die.0)
+                        ForEach(diceArray, id: \.self) {die in
+                            Text(die).tag(die)
                         }
                     }.pickerStyle(.segmented).padding(.top, 10)
                 }
@@ -148,6 +150,22 @@ struct DetailView: View {
                 Spacer()
             }.padding(.horizontal, 20)
         }
+    }
+    func loadSkins() async -> [String: ShaderGraphMaterial] {
+        var skins: [String: ShaderGraphMaterial] = [:]
+        for d in diceArray {
+            do {
+                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(
+                    named: "/Root/\(skinData.name)/\(skinData.name)_\(d)",
+                    from: "Scene.usda",
+                    in: DiceEnv.diceEnvBundle
+                )
+                skins[d] = material
+            } catch {
+                print(error)
+            }
+        }
+        return skins
     }
 }
 
