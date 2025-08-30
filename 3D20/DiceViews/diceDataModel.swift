@@ -40,11 +40,11 @@ class DiceData: ObservableObject {
                 let impulse = SIMD3<Float>(
                     0, // Slight left/right randomness
                     0, // Upwards throw
-					Float.random(in: -0.0001...0.0001) // Forward throw
+					Float.random(in: -0.001...0.001) // Forward throw
                 )
                 die.applyLinearImpulse(impulse, relativeTo: nil)
                 // Optionally: Add a random angular impulse for spinning
-				let angularImpulse = SIMD3<Float>(0.0,Float.random(in: -0.001...0.001),0.0)
+				let angularImpulse = SIMD3<Float>(0.0,Float.random(in: -0.0001...0.0001),0.0)
                 die.applyAngularImpulse(angularImpulse, relativeTo: nil)
             }
         }
@@ -97,6 +97,54 @@ class DiceData: ObservableObject {
     }
     
     @MainActor
+    func changeTraySkin(content: inout RealityViewCameraContent) {
+        if let die_ent = content.entities.first(where: {$0.name == "dice_anchor"}) {
+            if let tray_ent = die_ent.children.first(where: {$0.name == "Root"}) {
+                Task {
+                    let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
+                    if let tray = tray_ent.children[0].children.first(where: {$0.name == "tray"}) as? ModelEntity {
+                        tray.model?.materials[0] = material
+                    }
+                }
+                self.changeTraySkin = false
+            }
+        }
+    }
+    
+    @MainActor
+    func addTrayCover(content: inout RealityViewCameraContent) {
+        if let tray_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
+            Task {
+                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
+                let trayCover = try await Entity(named: "TrayAndCover", in: DiceEnv.diceEnvBundle)
+                trayCover.setScale(SIMD3(0.35, 0.35, 0.35), relativeTo: nil)
+                if let tray = trayCover.children[0].children.first(where: {$0.name == "Bottom"}) as? ModelEntity {
+                    let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: tray.model?.mesh ?? .generateBox(size: 1.0))
+                    tray.position = [0, 0, 0]
+                    tray.name = "tray"
+                    tray.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
+                    tray.components.set(CollisionComponent(shapes: [shapeRes], mode: .colliding))
+                    tray.generateCollisionShapes(recursive: true, static: true)
+                    tray.physicsBody?.isContinuousCollisionDetectionEnabled = true
+                    tray.model?.materials[0] = material
+                }
+                if let cover = trayCover.children[0].children.first(where: {$0.name == "Cover"}) as? ModelEntity {
+                    let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: cover.model?.mesh ?? .generateBox(size: 1.0))
+                    cover.name = "cover"
+                    cover.position = [0, 0.001, 0]
+                    cover.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
+                    cover.components.set(CollisionComponent(shapes: [shapeRes],isStatic: true))
+                    cover.collision?.mode = .colliding
+                    cover.physicsBody?.isContinuousCollisionDetectionEnabled = true
+                    cover.model?.materials[0] = SimpleMaterial(color: .clear, roughness: 0.0, isMetallic: false)
+                }
+                trayCover.position = [0,-0.5,0]
+                tray_ent.addChild(trayCover)
+            }
+        }
+    }
+    
+    @MainActor
     func addTray(content: inout RealityViewCameraContent) {
         if let tray_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
             Task {
@@ -134,52 +182,6 @@ class DiceData: ObservableObject {
                     cover.physicsBody?.isContinuousCollisionDetectionEnabled = true
                     tray_ent.addChild(cover)
                 }
-            }
-        }
-    }
-    
-    @MainActor
-    func changeTraySkin(content: inout RealityViewCameraContent) {
-        if let die_ent = content.entities.first(where: {$0.name == "dice_anchor"}) {
-            Task {
-                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
-                if let tray = die_ent.children.first(where: {$0.name == "tray"}) as? ModelEntity {
-                    tray.model?.materials[0] = material
-                }
-            }
-            self.changeTraySkin = false
-        }
-    }
-    
-    @MainActor
-    func addTrayCover(content: inout RealityViewCameraContent) {
-        if let tray_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
-            Task {
-                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
-                let trayCover = try await Entity(named: "TrayAndCover", in: DiceEnv.diceEnvBundle)
-                trayCover.setScale(SIMD3(0.35, 0.35, 0.35), relativeTo: nil)
-                if let tray = trayCover.children[0].children.first(where: {$0.name == "Bottom"}) as? ModelEntity {
-                    let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: tray.model?.mesh ?? .generateBox(size: 1.0))
-                    tray.position = [0, 0, 0]
-                    tray.name = "tray"
-                    tray.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
-                    tray.components.set(CollisionComponent(shapes: [shapeRes], mode: .colliding))
-                    tray.generateCollisionShapes(recursive: true, static: true)
-                    tray.physicsBody?.isContinuousCollisionDetectionEnabled = true
-                    tray.model?.materials[0] = material
-                }
-                if let cover = trayCover.children[0].children.first(where: {$0.name == "Cover"}) as? ModelEntity {
-                    let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: cover.model?.mesh ?? .generateBox(size: 1.0))
-                    cover.name = "cover"
-                    cover.position = [0, 0.001, 0]
-                    cover.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
-                    cover.components.set(CollisionComponent(shapes: [shapeRes],isStatic: true))
-                    cover.collision?.mode = .colliding
-                    cover.physicsBody?.isContinuousCollisionDetectionEnabled = true
-                    cover.model?.materials[0] = SimpleMaterial(color: .clear, roughness: 0.0, isMetallic: false)
-                }
-                trayCover.position = [0,-0.5,0]
-                tray_ent.addChild(trayCover)
             }
         }
     }
