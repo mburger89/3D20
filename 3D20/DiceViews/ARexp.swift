@@ -23,8 +23,9 @@ struct ARexp: View {
                 anchor.name = "dice_anchor"
                 content.add(anchor)
                 
-                diceData.addTray(content: &content)
-                diceData.addCover(content: &content)
+//                diceData.addTray(content: &content)
+//                diceData.addCover(content: &content)
+                diceData.addTrayCover(content: &content)
                 diceData.addDice(content: &content)
                 
             } update: { content in

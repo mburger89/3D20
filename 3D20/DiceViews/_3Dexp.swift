@@ -20,13 +20,12 @@ struct _3Dexp: View {
                 anchor.name = "dice_anchor"
                 content.add(anchor)
 
-                diceData.addTray(content: &content)
-                diceData.addCover(content: &content)
+//                diceData.addTray(content: &content)
+//                diceData.addCover(content: &content)
+                diceData.addTrayCover(content: &content)
                 diceData.addDice(content: &content)
-               if let box = content.entities.first(where: {$0.name == "dice_anchor"}) {
-                   box.setScale([3,3,3], relativeTo: nil)
-                   box.position = [0,-0.3,0]
-                }
+                
+                
             } update: { content in
                 if diceData.hasRolled {
                     diceData.rollDice(content: &content)
