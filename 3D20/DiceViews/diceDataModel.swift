@@ -143,47 +143,5 @@ class DiceData: ObservableObject {
             }
         }
     }
-    
-    @MainActor
-    func addTray(content: inout RealityViewCameraContent) {
-        if let tray_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
-            Task {
-                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
-                if let tray = try? await ModelEntity(named: "diceTray") {
-                    let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: tray.model?.mesh ?? .generateBox(size: 1.0))
-    //                print(shapeRes)
-                    tray.setScale(SIMD3(0.1, 0.1, 0.1), relativeTo: nil)
-                    tray.name = "tray"
-                    tray.position = [0, 0, 0]
-                    tray.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
-                    tray.components.set(CollisionComponent(shapes: [shapeRes], mode: .colliding))
-                    tray.generateCollisionShapes(recursive: true, static: true)
-                    tray.physicsBody?.isContinuousCollisionDetectionEnabled = true
-                    tray.model?.materials[0] = material
-                    tray_ent.addChild(tray)
-                }
-            }
-        }
-    }
-    
-    @MainActor
-    func addCover(content: inout RealityViewCameraContent) {
-        if let tray_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
-            Task {
-                if let cover = try? await ModelEntity(named: "DiceCover") {
-                    let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: cover.model?.mesh ?? .generateBox(size: 1.0))
-                    cover.name = "cover"
-                    cover.setScale(SIMD3(0.0010, 0.0010, 0.0010), relativeTo: nil)
-                    cover.position = [0, 0.001, 0]
-                    cover.model?.materials[0] = SimpleMaterial(color: .clear, roughness: 0.0, isMetallic: false)
-                    cover.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
-                    cover.components.set(CollisionComponent(shapes: [shapeRes],isStatic: true))
-                    cover.collision?.mode = .colliding
-                    cover.physicsBody?.isContinuousCollisionDetectionEnabled = true
-                    tray_ent.addChild(cover)
-                }
-            }
-        }
-    }
 //    MARK: end of class
 }
