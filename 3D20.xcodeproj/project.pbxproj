@@ -40,9 +40,22 @@
 		7391EF792E4D3AA100FFED64 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7312266D2E678D3A00BF22AF /* Exceptions for "3D20" folder in "3D20" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"-D20-Info.plist",
+			);
+			target = 73383CE02CFF7492007150D7 /* 3D20 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		73383CE32CFF7492007150D7 /* 3D20 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				7312266D2E678D3A00BF22AF /* Exceptions for "3D20" folder in "3D20" target */,
+			);
 			path = 3D20;
 			sourceTree = "<group>";
 		};
@@ -436,12 +449,13 @@
 				DEVELOPMENT_TEAM = VH3VD452Q2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "-D20-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = 3D20;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "arkit metal";
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
@@ -472,12 +486,13 @@
 				DEVELOPMENT_TEAM = VH3VD452Q2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "-D20-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = 3D20;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIRequiredDeviceCapabilities = arkit;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "arkit metal";
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
