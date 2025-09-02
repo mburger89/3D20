@@ -26,6 +26,7 @@ struct DetailView: View {
     @State private var selectedMode: Int = 0
     @State private var changeDie: Bool = false
     @State var diceName: String = "D20"
+    @State var updateDie: Bool = false
     let dscale: SIMD3<Float> = [0.8, 0.8, 0.8]
     let dposition: SIMD3<Float> = [0.0, 0.0, 0.0]
     var body: some View {
@@ -44,11 +45,11 @@ struct DetailView: View {
                             from: "Scene.usda",
                             in: DiceEnv.diceEnvBundle
                         )
-                        let die = try await ModelEntity(named: diceName)
+                        let die = try await Entity(named: diceName, in: DiceEnv.diceEnvBundle)
                         die.scale = dscale
                         die.position = dposition
                         die.name = "die"
-                        die.model?.materials[0] = material
+                        (die.children.first as? ModelEntity)?.model?.materials[0] = material
                         die.components.set(SpinComponent())
                         ent.addChild(die)
                     } catch {
@@ -56,24 +57,25 @@ struct DetailView: View {
                     }
                     content.add(ent)
                 } update: { content in
-                    if let current_die = content.entities.first(where: {$0.name == "container"}) {
-                        if let die_entity = current_die.children.first(where: {$0.children.count == 0}) {
-                            current_die.removeChild(die_entity)
+                    if updateDie {
+                        if let current_die = content.entities.first(where: {$0.name == "container"}) {
+                            current_die.removeChild(current_die.children.first!)
+                            Task {
+                                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(
+                                    named: "/Root/\(skinData.name)/\(skinData.name)_\(diceName)",
+                                    from: "Scene.usda",
+                                    in: DiceEnv.diceEnvBundle
+                                )
+                                let die_temp = try await Entity(named: diceName, in: DiceEnv.diceEnvBundle)
+                                die_temp.scale = dscale
+                                die_temp.position = dposition
+                                die_temp.name = "die"
+                                (die_temp.children.first as? ModelEntity)?.model?.materials[0] = material
+                                die_temp.components.set(SpinComponent())
+                                current_die.addChild(die_temp)
+                            }
                         }
-                        Task {
-                            let material: ShaderGraphMaterial = try await ShaderGraphMaterial(
-                                named: "/Root/\(skinData.name)/\(skinData.name)_\(diceName)",
-                                from: "Scene.usda",
-                                in: DiceEnv.diceEnvBundle
-                            )
-                            let die_temp = try await ModelEntity(named: diceName)
-                            die_temp.scale = dscale
-                            die_temp.position = dposition
-                            die_temp.name = "die"
-                            die_temp.model?.materials[0] = material
-                            die_temp.components.set(SpinComponent())
-                            current_die.addChild(die_temp)
-                        }
+                        updateDie.toggle()
                     }
                 } placeholder: {
                     VStack(alignment: .center){
@@ -137,6 +139,9 @@ struct DetailView: View {
                             Text(die).tag(die)
                         }
                     }.pickerStyle(.segmented).padding(.top, 10)
+                        .onChange(of: diceName) {
+                            updateDie.toggle()
+                        }
                 }
                 VStack (alignment: .leading) {
                     Text(skinData.displayName).font(.largeTitle).bold()

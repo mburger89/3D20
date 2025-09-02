@@ -40,11 +40,11 @@ class DiceData: ObservableObject {
                 let impulse = SIMD3<Float>(
                     0, // Slight left/right randomness
                     0, // Upwards throw
-					Float.random(in: -0.0001...0.0001) // Forward throw
+					Float.random(in: -0.001...0.001) // Forward throw
                 )
                 die.applyLinearImpulse(impulse, relativeTo: nil)
                 // Optionally: Add a random angular impulse for spinning
-				let angularImpulse = SIMD3<Float>(0.0,Float.random(in: -0.001...0.001),0.0)
+				let angularImpulse = SIMD3<Float>(0.0,Float.random(in: -0.0001...0.0001),0.0)
                 die.applyAngularImpulse(angularImpulse, relativeTo: nil)
             }
         }
@@ -63,20 +63,20 @@ class DiceData: ObservableObject {
         if let die_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
             Task {
                 let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/\(self.skin)/\(self.skin)_\(self.dice_type)", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
-                if let dice_entity = try? await ModelEntity(named: String(self.dice_type)) {
-                    let shapeRes: ShapeResource = try! await ShapeResource.generateConvex(from: dice_entity.model?.mesh ?? .generateBox(size: 0.10))
+                if let dice_entity = try? await Entity(named: "\(self.dice_type)", in: DiceEnv.diceEnvBundle).children.first {
+                    dice_entity.setScale(SIMD3(0.09, 0.09, 0.09), relativeTo: nil)
+                    let shapeRes: ShapeResource = try! await ShapeResource.generateConvex(from: (dice_entity as! ModelEntity).model?.mesh ?? .generateBox(size: 0.10))
                     dice_entity.name = "die"
                     dice_entity.position = self.dice_position
-                    dice_entity.setScale(SIMD3(0.03, 0.03, 0.03), relativeTo: nil)
                     dice_entity.components.set(PhysicsBodyComponent(shapes: [shapeRes], mass: 0.6,mode: .dynamic,))
                     dice_entity.components.set(CollisionComponent(shapes: [shapeRes], mode: .colliding))
-                    dice_entity.physicsBody?.massProperties.inertia = SIMD3<Float>(0.5, 0.5, 0.5)
-                    dice_entity.physicsBody?.isContinuousCollisionDetectionEnabled = true
+                    (dice_entity as! ModelEntity).physicsBody?.massProperties.inertia = SIMD3<Float>(0.5, 0.5, 0.5)
+                    (dice_entity as! ModelEntity).physicsBody?.isContinuousCollisionDetectionEnabled = true
                     dice_entity.transform.rotation = simd_quatf(
                         angle: Float.random(in: 1.0..<180.0),
                         axis: SIMD3(1.0, 0.0, 0.0)
                     )
-                    dice_entity.model?.materials[0] = material
+                    (dice_entity as! ModelEntity).model?.materials[0] = material
                     die_ent.addChild(dice_entity)
                 }
             }
@@ -97,56 +97,50 @@ class DiceData: ObservableObject {
     }
     
     @MainActor
-    func addTray(content: inout RealityViewCameraContent) {
-        if let tray_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
-            Task {
-                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
-                if let tray = try? await ModelEntity(named: "diceTray") {
-                    let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: tray.model?.mesh ?? .generateBox(size: 1.0))
-                    tray.name = "tray"
-                    tray.setScale(SIMD3(0.10, 0.10, 0.10), relativeTo: nil)
-                    tray.position = [0, 0, 0]
-                    tray.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
-                    tray.components.set(CollisionComponent(shapes: [shapeRes],isStatic: true))
-                    tray.collision?.mode = .colliding
-                    tray.physicsBody?.isContinuousCollisionDetectionEnabled = true
-                    tray.model?.materials[0] = material
-                    tray_ent.addChild(tray)
+    func changeTraySkin(content: inout RealityViewCameraContent) {
+        if let die_ent = content.entities.first(where: {$0.name == "dice_anchor"}) {
+            if let tray_ent = die_ent.children.first(where: {$0.name == "Root"}) {
+                Task {
+                    let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
+                    if let tray = tray_ent.children[0].children.first(where: {$0.name == "tray"}) as? ModelEntity {
+                        tray.model?.materials[0] = material
+                    }
                 }
+                self.changeTraySkin = false
             }
         }
     }
     
     @MainActor
-    func addCover(content: inout RealityViewCameraContent) {
+    func addTrayCover(content: inout RealityViewCameraContent) {
         if let tray_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
             Task {
-                if let cover = try? await ModelEntity(named: "DiceCover") {
+                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
+                let trayCover = try await Entity(named: "TrayAndCover", in: DiceEnv.diceEnvBundle)
+                trayCover.setScale(SIMD3(0.35, 0.35, 0.35), relativeTo: nil)
+                if let tray = trayCover.children[0].children.first(where: {$0.name == "Bottom"}) as? ModelEntity {
+                    let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: tray.model?.mesh ?? .generateBox(size: 1.0))
+                    tray.position = [0, 0, 0]
+                    tray.name = "tray"
+                    tray.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
+                    tray.components.set(CollisionComponent(shapes: [shapeRes], mode: .colliding))
+                    tray.generateCollisionShapes(recursive: true, static: true)
+                    tray.physicsBody?.isContinuousCollisionDetectionEnabled = true
+                    tray.model?.materials[0] = material
+                }
+                if let cover = trayCover.children[0].children.first(where: {$0.name == "Cover"}) as? ModelEntity {
                     let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: cover.model?.mesh ?? .generateBox(size: 1.0))
                     cover.name = "cover"
-                    cover.setScale(SIMD3(0.0010, 0.0010, 0.0010), relativeTo: nil)
                     cover.position = [0, 0.001, 0]
-                    cover.model?.materials[0] = SimpleMaterial(color: .clear, roughness: 0.0, isMetallic: false)
                     cover.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
                     cover.components.set(CollisionComponent(shapes: [shapeRes],isStatic: true))
                     cover.collision?.mode = .colliding
                     cover.physicsBody?.isContinuousCollisionDetectionEnabled = true
-                    tray_ent.addChild(cover)
+                    cover.model?.materials[0] = SimpleMaterial(color: .clear, roughness: 0.0, isMetallic: false)
                 }
+                trayCover.position = [0,-0.5,0]
+                tray_ent.addChild(trayCover)
             }
-        }
-    }
-    
-    @MainActor
-    func changeTraySkin(content: inout RealityViewCameraContent) {
-        if let die_ent = content.entities.first(where: {$0.name == "dice_anchor"}) {
-            Task {
-                let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
-                if let tray = die_ent.children.first(where: {$0.name == "tray"}) as? ModelEntity {
-                    tray.model?.materials[0] = material
-                }
-            }
-            self.changeTraySkin = false
         }
     }
 //    MARK: end of class
