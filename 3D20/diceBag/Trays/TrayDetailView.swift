@@ -14,9 +14,8 @@ struct TrayDetailView: View {
     var skinData: SD
     @State private var selectedMode: Int = 0
     @State private var changeDie: Bool = false
-//    @State var diceName: String = "diceTray"
-    let dscale: SIMD3<Float> = [0.65, 0.65, 0.65]
-    let dposition: SIMD3<Float> = [0.0, 0.0, 0.0]
+    let dscale: SIMD3<Float> = [0.0075, 0.0075, 0.0075]
+    let dposition: SIMD3<Float> = [0.0, -0.1, 0.0]
     var body: some View {
         VStack {
                 RealityView { content in
@@ -31,40 +30,22 @@ struct TrayDetailView: View {
                             from: "Scene.usda",
                             in: DiceEnv.diceEnvBundle
                         )
-                        let die = try await ModelEntity(named: "diceTray")
-                        die.scale = dscale
-                        die.position = dposition
-                        die.name = "die"
-                        die.model?.materials[0] = material
-                        die.transform.rotation = simd_quatf(angle: Float(200.0), axis:[1,0,0])
-                        die.components.set(SpinComponent(axis: [0,0,1]))
-                        ent.addChild(die)
+                        let d = try await Entity(named: "diceTray", in: DiceEnv.diceEnvBundle)
+                        print(d)
+                        let die = try await Entity(named: "diceTray", in: DiceEnv.diceEnvBundle)
+                            .children[0].children[0].children[0].children.first as? ModelEntity
+                        die?.scale = dscale
+                        die?.position = dposition
+                        die?.name = "die"
+                        die?.model?.materials[0] = material
+                        die?.transform.rotation = simd_quatf(angle: Float(0.5), axis:[1,0,0])
+//                        die?.components.set(SpinComponent(axis: [0,1,0]))
+                        ent.addChild(die ?? Entity())
                     } catch {
                         print(error)
                     }
                     content.add(ent)
                 }
-//            update: { content in
-//                    if let current_die = content.entities.first(where: {$0.name == "container"}) {
-//                        if let die_entity = current_die.children.first(where: {$0.children.count == 0}) {
-//                            current_die.removeChild(die_entity)
-//                        }
-//                        Task {
-//                            let material: ShaderGraphMaterial = try await ShaderGraphMaterial(
-//                                named: "/Root/TraySkins/\(skinData.name)_tray",
-//                                from: "Scene.usda",
-//                                in: DiceEnv.diceEnvBundle
-//                            )
-//                            let die_temp = try await ModelEntity(named: "diceTray")
-//                            die_temp.scale = dscale
-//                            die_temp.position = dposition
-//                            die_temp.name = "die"
-//                            die_temp.model?.materials[0] = material
-//                            die_temp.components.set(SpinComponent(axis: [0,0,1]))
-//                            current_die.addChild(die_temp)
-//                        }
-//                    }
-//                }
             placeholder: {
                     VStack(alignment: .center){
                         Spacer()
