@@ -19,6 +19,7 @@ struct DetailView: View {
         "D20",
         "D12",
         "D10",
+        "D100",
         "D08",
         "D06",
         "D04"
@@ -75,8 +76,8 @@ struct DetailView: View {
                                 current_die.addChild(die_temp)
                             }
                         }
-                        updateDie.toggle()
                     }
+                    updateDie = false
                 } placeholder: {
                     VStack(alignment: .center){
                         Spacer()
@@ -104,9 +105,7 @@ struct DetailView: View {
                         diceCol.position = [0.0,-0.5,0.0]
                         diceCol.name = "Container"
                         diceCol.children[0].children.forEach { die in
-                            if die.name != "D100" {
-                                (die as! ModelEntity).model?.materials[0] = skins[die.name] ?? SimpleMaterial()
-                            }
+                        (die as! ModelEntity).model?.materials[0] = skins[die.name] ?? SimpleMaterial()
                         }
                         content.add(diceCol)
                     } catch {

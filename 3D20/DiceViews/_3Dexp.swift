@@ -20,12 +20,8 @@ struct _3Dexp: View {
                 anchor.name = "dice_anchor"
                 content.add(anchor)
 
-//                diceData.addTray(content: &content)
-//                diceData.addCover(content: &content)
                 diceData.addTrayCover(content: &content)
                 diceData.addDice(content: &content)
-                
-                
             } update: { content in
                 if diceData.hasRolled {
                     diceData.rollDice(content: &content)

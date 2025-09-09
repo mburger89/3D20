@@ -117,7 +117,7 @@ class DiceData: ObservableObject {
             Task {
                 let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
                 let trayCover = try await Entity(named: "TrayAndCover", in: DiceEnv.diceEnvBundle)
-                trayCover.setScale(SIMD3(0.35, 0.35, 0.35), relativeTo: nil)
+                trayCover.setScale(SIMD3(0.4, 0.4, 0.4), relativeTo: nil)
                 if let tray = trayCover.children[0].children.first(where: {$0.name == "Bottom"}) as? ModelEntity {
                     let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: tray.model?.mesh ?? .generateBox(size: 1.0))
                     tray.position = [0, 0, 0]

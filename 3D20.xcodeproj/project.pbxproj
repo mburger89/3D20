@@ -40,22 +40,9 @@
 		7391EF792E4D3AA100FFED64 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		7312266D2E678D3A00BF22AF /* Exceptions for "3D20" folder in "3D20" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"-D20-Info.plist",
-			);
-			target = 73383CE02CFF7492007150D7 /* 3D20 */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		73383CE32CFF7492007150D7 /* 3D20 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				7312266D2E678D3A00BF22AF /* Exceptions for "3D20" folder in "3D20" target */,
-			);
 			path = 3D20;
 			sourceTree = "<group>";
 		};

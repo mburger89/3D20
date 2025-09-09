@@ -30,10 +30,8 @@ struct TrayDetailView: View {
                             from: "Scene.usda",
                             in: DiceEnv.diceEnvBundle
                         )
-                        let d = try await Entity(named: "diceTray", in: DiceEnv.diceEnvBundle)
-                        print(d)
                         let die = try await Entity(named: "diceTray", in: DiceEnv.diceEnvBundle)
-                            .children[0].children[0].children[0].children.first as? ModelEntity
+                            .children[0].children.first as? ModelEntity
                         die?.scale = dscale
                         die?.position = dposition
                         die?.name = "die"
