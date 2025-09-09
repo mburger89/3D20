@@ -1,8 +1,8 @@
 //
-//  diceDataModel.swift
+//  DiceDataModel.swift
 //  3D20
 //
-//  Created by Anson Burger on 6/30/25.
+//  Created by Anson Burger on 9/9/25.
 //
 import RealityKit
 import SwiftUI
@@ -31,7 +31,7 @@ class DiceData: ObservableObject {
                 die.position = self.dice_position
                 die.transform.rotation = simd_quatf(angle: Float.random(in: 1.0 ..< 180.0), axis: SIMD3(1.0, 0.0, 0.0))
                 // Clear any previous velocities using the correct RealityKit API
-				if var motion = die.components[PhysicsMotionComponent.self] {
+                if var motion = die.components[PhysicsMotionComponent.self] {
                     motion.linearVelocity = SIMD3<Float>.zero
                     motion.angularVelocity = SIMD3<Float>.zero
                     die.components.set(motion)
@@ -40,11 +40,11 @@ class DiceData: ObservableObject {
                 let impulse = SIMD3<Float>(
                     0, // Slight left/right randomness
                     0, // Upwards throw
-					Float.random(in: -0.001...0.001) // Forward throw
+                    Float.random(in: -0.001...0.001) // Forward throw
                 )
                 die.applyLinearImpulse(impulse, relativeTo: nil)
                 // Optionally: Add a random angular impulse for spinning
-				let angularImpulse = SIMD3<Float>(0.0,Float.random(in: -0.0001...0.0001),0.0)
+                let angularImpulse = SIMD3<Float>(0.0,Float.random(in: -0.0001...0.0001),0.0)
                 die.applyAngularImpulse(angularImpulse, relativeTo: nil)
             }
         }
