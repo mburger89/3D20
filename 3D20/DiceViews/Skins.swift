@@ -9,9 +9,10 @@ import SwiftUI
 
 struct Skins: View {
     @Environment(\.dismiss) var dismiss
-    var dD: DiceData
+	@Environment(DiceData.self) var diceData: DiceData
     @State var dort: Bool = true
     var body: some View {
+		@Bindable var dD = diceData
         Picker("skinSelection", selection: $dort) {
             Text("Dice").tag(true)
             Text("Tray").tag(false)
@@ -62,6 +63,6 @@ struct Skins: View {
 }
 
 #Preview {
-    Skins(dD: DiceData())
+    Skins()
 }
 

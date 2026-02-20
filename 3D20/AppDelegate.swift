@@ -13,6 +13,7 @@ struct ThereD20: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+				.environment(DiceData())
         }
     }
 }

@@ -9,9 +9,10 @@ import SwiftUI
 import RealityKit
 
 struct ARexp: View {
-    @State var diceData: DiceData
+	@Environment(DiceData.self) var db
     var body: some View {
         ZStack {
+			@Bindable var diceData = db
             RealityView { content in
                 content.camera = .spatialTracking
                 content.renderingEffects.motionBlur = .disabled
@@ -23,8 +24,6 @@ struct ARexp: View {
                 anchor.name = "dice_anchor"
                 content.add(anchor)
                 
-//                diceData.addTray(content: &content)
-//                diceData.addCover(content: &content)
                 diceData.addTrayCover(content: &content)
                 diceData.addDice(content: &content)
                 
@@ -53,16 +52,16 @@ struct ARexp: View {
                 if diceData.changeDie { diceData.changeDie = false }
             }
             .sheet(isPresented: $diceData.showDiceOptions, onDismiss: { diceData.changeDie.toggle() }) {
-                diceOptions(diceData: $diceData).presentationDetents([.fraction(0.4)])
+                diceOptions().presentationDetents([.fraction(0.4)])
             }
             .sheet(isPresented: $diceData.showSkinOptions) {
-                Skins(dD: diceData).presentationDetents([.fraction(0.4)])
+                Skins().presentationDetents([.fraction(0.4)])
             }
-           HUDControls(diceData: diceData)
+           HUDControls()
         }.edgesIgnoringSafeArea(.all)
     }
 }
 
 #Preview {
-    ARexp(diceData: DiceData())
+    ARexp()
 }

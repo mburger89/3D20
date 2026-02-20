@@ -14,7 +14,7 @@ struct TrayDetailView: View {
     var skinData: SD
     @State private var selectedMode: Int = 0
     @State private var changeDie: Bool = false
-    let dscale: SIMD3<Float> = [0.0075, 0.0075, 0.0075]
+    let dscale: SIMD3<Float> = [0.01, 0.01, 0.01]
     let dposition: SIMD3<Float> = [0.0, -0.1, 0.0]
     var body: some View {
         VStack {

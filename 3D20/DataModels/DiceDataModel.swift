@@ -4,18 +4,18 @@
 //
 //  Created by Anson Burger on 9/9/25.
 //
+import Foundation
 import RealityKit
 import SwiftUI
-import Foundation
 import DiceEnv
 
 @Observable
 class DiceData: ObservableObject {
     var dice_bool: Bool = false
     var tray_name: String = "diceTray"
-    var dice_position: SIMD3<Float> = [0, 0.24, 0.0]
     var dice_type: String = "D20"
     var skin: String = "SteelDarkAged"
+	var traySkin: String = "woodAcajou"
     var arExp: Bool = false
     var changeDieSkin: Bool = false
     var changeTraySkin: Bool = false
@@ -23,7 +23,8 @@ class DiceData: ObservableObject {
     var showSkinOptions: Bool = false
     var hasRolled: Bool = false
     var changeDie: Bool = false
-    var traySkin: String = "woodAcajou"
+	var dice_position: SIMD3<Float> = [0, 0.24, 0.0]
+	var diceScale: SIMD3<Float> = SIMD3(0.09, 0.09, 0.09)
     
     func rollDice(content: inout RealityViewCameraContent) {
         if let DieEntity = content.entities.first(where: { $0.name == "dice_anchor" }) {
@@ -61,10 +62,10 @@ class DiceData: ObservableObject {
     @MainActor
     func addDice(content: inout RealityViewCameraContent) {
         if let die_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
-            Task {
+			Task {
                 let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/\(self.skin)/\(self.skin)_\(self.dice_type)", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
                 if let dice_entity = try? await Entity(named: "\(self.dice_type)", in: DiceEnv.diceEnvBundle).children.first {
-                    dice_entity.setScale(SIMD3(0.09, 0.09, 0.09), relativeTo: nil)
+					dice_entity.setScale(self.diceScale, relativeTo: nil)
                     let shapeRes: ShapeResource = try! await ShapeResource.generateConvex(from: (dice_entity as! ModelEntity).model?.mesh ?? .generateBox(size: 0.10))
                     dice_entity.name = "die"
                     dice_entity.position = self.dice_position

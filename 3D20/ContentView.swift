@@ -10,11 +10,11 @@ import SwiftUI
 import RealityKit
 
 struct ContentView: View {
-    @State var diceData = DiceData()
+	@Environment(DiceData.self) var diceData
     var body: some View {
         NavigationStack {
             if diceData.arExp {
-                ARexp(diceData: diceData)
+                ARexp()
             } else {
                 _3Dexp(diceData: diceData)
             }

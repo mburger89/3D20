@@ -13,23 +13,22 @@ import DiceEnv
 
 
 struct DetailView: View {
-    var skinData: SD
-    
-    private let diceArray: [String] = [
-        "D20",
-        "D12",
-        "D10",
-        "D100",
-        "D08",
-        "D06",
-        "D04"
-    ]
+	@Environment(DiceData.self) var db
     @State private var selectedMode: Int = 0
     @State private var changeDie: Bool = false
     @State var diceName: String = "D20"
     @State var updateDie: Bool = false
-    let dscale: SIMD3<Float> = [0.8, 0.8, 0.8]
     let dposition: SIMD3<Float> = [0.0, 0.0, 0.0]
+	var skinData: SD
+	private let diceArray: [String] = [
+		"D20",
+		"D12",
+		"D10",
+		"D100",
+		"D08",
+		"D06",
+		"D04"
+	]
     var body: some View {
         VStack {
             if selectedMode == 0 {
@@ -47,7 +46,7 @@ struct DetailView: View {
                             in: DiceEnv.diceEnvBundle
                         )
                         let die = try await Entity(named: diceName, in: DiceEnv.diceEnvBundle)
-                        die.scale = dscale
+						die.scale = db.diceScale
                         die.position = dposition
                         die.name = "die"
                         (die.children.first as? ModelEntity)?.model?.materials[0] = material
@@ -68,16 +67,16 @@ struct DetailView: View {
                                     in: DiceEnv.diceEnvBundle
                                 )
                                 let die_temp = try await Entity(named: diceName, in: DiceEnv.diceEnvBundle)
-                                die_temp.scale = dscale
+								die_temp.scale = db.diceScale
                                 die_temp.position = dposition
                                 die_temp.name = "die"
                                 (die_temp.children.first as? ModelEntity)?.model?.materials[0] = material
                                 die_temp.components.set(SpinComponent())
                                 current_die.addChild(die_temp)
+								updateDie = false
                             }
                         }
                     }
-                    updateDie = false
                 } placeholder: {
                     VStack(alignment: .center){
                         Spacer()

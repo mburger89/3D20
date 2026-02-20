@@ -47,13 +47,13 @@ struct _3Dexp: View {
                 if diceData.changeDie { diceData.changeDie = false }
             }
             .sheet(isPresented: $diceData.showDiceOptions, onDismiss: { diceData.changeDie.toggle() }) {
-                diceOptions(diceData: $diceData).presentationDetents([.fraction(0.4)])
+                diceOptions().presentationDetents([.fraction(0.4)])
             }
             .sheet(isPresented: $diceData.showSkinOptions) {
-                Skins(dD: diceData).presentationDetents([.fraction(0.4)])
+                Skins().presentationDetents([.fraction(0.4)])
             }
 //            MARK: The HUD
-            HUDControls(diceData: diceData)
+            HUDControls()
             
         }.edgesIgnoringSafeArea(.all)
     }

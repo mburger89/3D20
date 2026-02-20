@@ -9,11 +9,14 @@ import SwiftUI
 
 struct diceOptions: View {
     @Environment(\.dismiss) private var dismiss
-    @Binding var diceData: DiceData
+    @Environment(DiceData.self) var diceData: DiceData
     var body: some View {
         Grid(horizontalSpacing: 20, verticalSpacing: 20){
             GridRow{
-                Button(action: {diceData.dice_type = "D04"; dismiss()}){
+				Button(action: {
+					diceData.dice_type = "D04";
+					dismiss()
+				}){
                     Image("D04").resizable().scaledToFit()
                 }.frame(width: 100, height: 100)
                 Button(action:{diceData.dice_type = "D06"; dismiss()}) {
@@ -39,5 +42,5 @@ struct diceOptions: View {
 }
 
 #Preview {
-    diceOptions(diceData: .constant(DiceData()))
+    diceOptions()
 }
