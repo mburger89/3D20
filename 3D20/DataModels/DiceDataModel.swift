@@ -24,7 +24,7 @@ class DiceData: ObservableObject {
     var hasRolled: Bool = false
     var changeDie: Bool = false
 	var dice_position: SIMD3<Float> = [0, 0.24, 0.0]
-	var diceScale: SIMD3<Float> = SIMD3(0.09, 0.09, 0.09)
+	var diceScale: SIMD3<Float> = SIMD3(0.15, 0.15, 0.15)
     
     func rollDice(content: inout RealityViewCameraContent) {
         if let DieEntity = content.entities.first(where: { $0.name == "dice_anchor" }) {
