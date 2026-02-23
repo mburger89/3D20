@@ -19,6 +19,7 @@ struct DetailView: View {
     @State var diceName: String = "D20"
     @State var updateDie: Bool = false
     let dposition: SIMD3<Float> = [0.0, 0.0, 0.0]
+	let dieScale: SIMD3<Float> = [1, 1, 1]
 	var skinData: SD
 	private let diceArray: [String] = [
 		"D20",
@@ -46,7 +47,7 @@ struct DetailView: View {
                             in: DiceEnv.diceEnvBundle
                         )
                         let die = try await Entity(named: diceName, in: DiceEnv.diceEnvBundle)
-						die.scale = db.diceScale
+						die.scale = dieScale
                         die.position = dposition
                         die.name = "die"
                         (die.children.first as? ModelEntity)?.model?.materials[0] = material
@@ -67,7 +68,7 @@ struct DetailView: View {
                                     in: DiceEnv.diceEnvBundle
                                 )
                                 let die_temp = try await Entity(named: diceName, in: DiceEnv.diceEnvBundle)
-								die_temp.scale = db.diceScale
+								die_temp.scale = dieScale
                                 die_temp.position = dposition
                                 die_temp.name = "die"
                                 (die_temp.children.first as? ModelEntity)?.model?.materials[0] = material
