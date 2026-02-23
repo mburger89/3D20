@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		7318E7542E396CB600FD1EFC /* DiceEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 73B401EA2E276D6100F4A2F1 /* DiceEnv */; };
+		73563D7A2F4C2BD500D0337E /* 3D20.icon in Resources */ = {isa = PBXBuildFile; fileRef = 73563D792F4C2BD500D0337E /* 3D20.icon */; };
+		73563D7B2F4C2BD500D0337E /* 3D20.icon in Resources */ = {isa = PBXBuildFile; fileRef = 73563D792F4C2BD500D0337E /* 3D20.icon */; };
+		73563D7C2F4C2BD500D0337E /* 3D20.icon in Resources */ = {isa = PBXBuildFile; fileRef = 73563D792F4C2BD500D0337E /* 3D20.icon */; };
 		73706AA02D443DF6001C7F59 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 73706A9F2D443DF6001C7F59 /* README.md */; };
 		7391EF7A2E4D3AA100FFED64 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7391EF792E4D3AA100FFED64 /* Launch Screen.storyboard */; };
 		73A102C22E4D77E300740E8F /* DiceEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 73A102C12E4D77E300740E8F /* DiceEnv */; };
@@ -36,6 +39,7 @@
 		73383CE12CFF7492007150D7 /* 3D20.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3D20.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73383CF12CFF7494007150D7 /* 3D20Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 3D20Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		73383CFB2CFF7494007150D7 /* 3D20UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 3D20UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		73563D792F4C2BD500D0337E /* 3D20.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = 3D20.icon; sourceTree = "<group>"; };
 		73706A9F2D443DF6001C7F59 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7391EF792E4D3AA100FFED64 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,6 +101,7 @@
 				73383CFE2CFF7494007150D7 /* 3D20UITests */,
 				73E192CE2E347B960081A328 /* Frameworks */,
 				73383CE22CFF7492007150D7 /* Products */,
+				73563D792F4C2BD500D0337E /* 3D20.icon */,
 			);
 			sourceTree = "<group>";
 		};
@@ -244,6 +249,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73563D7A2F4C2BD500D0337E /* 3D20.icon in Resources */,
 				7391EF7A2E4D3AA100FFED64 /* Launch Screen.storyboard in Resources */,
 				73706AA02D443DF6001C7F59 /* README.md in Resources */,
 			);
@@ -253,6 +259,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73563D7B2F4C2BD500D0337E /* 3D20.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,6 +267,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73563D7C2F4C2BD500D0337E /* 3D20.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,7 +435,7 @@
 		73383D062CFF7494007150D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = 3D20;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -464,7 +472,7 @@
 		73383D072CFF7494007150D7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = 3D20;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -505,7 +513,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.unicornlabs..-D20Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -523,7 +531,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.unicornlabs..-D20Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -540,6 +548,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.unicornlabs..-D20UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -556,6 +565,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.unicornlabs..-D20UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
