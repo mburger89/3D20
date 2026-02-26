@@ -1,0 +1,191 @@
+{
+	"dice": [
+		{
+			"name": "SteelDarkAged",
+			"displayName": "Aged Steel",
+			"description": "Aged Steel is a durable, dark-colored metal that is well used"
+		},
+		{
+			"name": "PaintedWorn",
+			"displayName": "Painted Worn",
+			"description": ""
+		},
+		{
+			"name": "GoldenDroid",
+			"displayName": "Golden Droid",
+			"description": ""
+		},
+		{
+			"name": "DarkMarble",
+			"displayName": "Dark Marble",
+			"description": ""
+		},
+		{
+			"name": "Sapphire",
+			"displayName": "Sapphire",
+			"description": ""
+		},
+		{
+			"name": "BlueEdge",
+			"displayName": "Blue Edge",
+			"description": ""
+		}
+	],
+	"trays": [
+		{
+			"name": "boneStylized",
+			"displayName": "Stylized Bone",
+			"description": ""
+		},
+		{
+			"name": "bronzeArmor",
+			"displayName": "Bronze Armor",
+			"description": ""
+		},
+		{
+			"name": "carbonFiber",
+			"displayName": "Carbon Fiber",
+			"description": ""
+		},
+		{
+			"name": "clayTerracotta",
+			"displayName": "Terracotta",
+			"description": ""
+		},
+		{
+			"name": "creatureSkinGreen",
+			"displayName": "Green Skin",
+			"description": ""
+		},
+		{
+			"name": "fabricWoolHerringbone",
+			"displayName": "Herringbone Wool",
+			"description": ""
+		},
+		{
+			"name": "fabricWoolJersey",
+			"displayName": "Wool Fabric",
+			"description": ""
+		},
+		{
+			"name": "leatherCalfGrain",
+			"displayName": "Leather",
+			"description": ""
+		},
+		{
+			"name": "leatheretteDamaged",
+			"displayName": "Damaged Leatherette",
+			"description": ""
+		},
+		{
+			"name": "leatherSofa",
+			"displayName": "Leather Sofa",
+			"description": ""
+		},
+		{
+			"name": "leatherStylized",
+			"displayName": "Stylized Leather",
+			"description": ""
+		},
+		{
+			"name": "leatherWeathered",
+			"displayName": "Weathered Leather",
+			"description": ""
+		},
+		{
+			"name": "marbleFineWhite",
+			"displayName": "Fine White Marble",
+			"description": ""
+		},
+		{
+			"name": "marblePolished",
+			"displayName": "Polished Marble",
+			"description": ""
+		},
+		{
+			"name": "marbleVeined",
+			"displayName": "Marble",
+			"description": ""
+		},
+		{
+			"name": "marbleVerdiAlpi",
+			"displayName": "Verdi Apli Marble",
+			"description": ""
+		},
+		{
+			"name": "metalCyborg",
+			"displayName": "Cyborg",
+			"description": ""
+		},
+		{
+			"name": "paintBrushed",
+			"displayName": "Paint Brushed",
+			"description": ""
+		},
+		{
+			"name": "paintRoll",
+			"displayName": "Paint",
+			"description": ""
+		},
+		{
+			"name": "plasticComposite",
+			"displayName": "Plastic Composite",
+			"description": ""
+		},
+		{
+			"name": "plasticUsed",
+			"displayName": "Old Plastic",
+			"description": ""
+		},
+		{
+			"name": "plasticUsedSoft",
+			"displayName": "Old Soft Plastic",
+			"description": ""
+		},
+		{
+			"name": "rubberDry",
+			"displayName": "Dry Rubber",
+			"description": ""
+		},
+		{
+			"name": "rubberRaw",
+			"displayName": "Raw Rubber",
+			"description": ""
+		},
+		{
+			"name": "steelDarkAged",
+			"displayName": "Dark Aged Steel",
+			"description": ""
+		},
+		{
+			"name": "steelScratched",
+			"displayName": "Scratched Steel",
+			"description": ""
+		},
+		{
+			"name": "stoneTravertine",
+			"displayName": "Travertine Stone",
+			"description": ""
+		},
+		{
+			"name": "stylizedWoodPlain",
+			"displayName": "Stylized Wood",
+			"description": ""
+		},
+		{
+			"name": "terazzoComposite",
+			"displayName": "Compossite",
+			"description": ""
+		},
+		{
+			"name": "woodAcajou",
+			"displayName": "Acajou Wood",
+			"description": ""
+		},
+		{
+			"name": "woodPlain",
+			"displayName": "Plain Wood",
+			"description": ""
+		}
+	]
+}

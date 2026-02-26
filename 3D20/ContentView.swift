@@ -11,19 +11,17 @@ import RealityKit
 
 struct ContentView: View {
 	@Environment(DiceData.self) var diceData
-    var body: some View {
-        NavigationStack {
-            if diceData.arExp {
-                ARexp()
-            } else {
-                _3Dexp(diceData: diceData)
-            }
-        }
-        
-    }
-    
+	var body: some View {
+		NavigationStack {
+			if diceData.arExp {
+				ARexp()
+			} else {
+				_3Dexp(diceData: diceData)
+			}
+		}
+	}
 }
 
 #Preview {
-    ContentView()
+	ContentView()
 }
