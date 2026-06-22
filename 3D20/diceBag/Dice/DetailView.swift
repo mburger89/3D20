@@ -60,21 +60,27 @@ struct DetailView: View {
 				} update: { content in
 					if updateDie {
 						if let current_die = content.entities.first(where: {$0.name == "container"}) {
-							current_die.removeChild(current_die.children.first!)
+							if let child = current_die.children.first {
+									current_die.removeChild(child)
+								}
 							Task {
-								let material: ShaderGraphMaterial = try await ShaderGraphMaterial(
-									named: "/Root/\(skinData.name)/\(skinData.name)_\(diceName)",
-									from: "Scene.usda",
-									in: DiceEnv.diceEnvBundle
-								)
-								let die_temp = try await Entity(named: diceName, in: DiceEnv.diceEnvBundle)
-								die_temp.scale = dieScale
-								die_temp.position = dposition
-								die_temp.name = "die"
-								(die_temp.children.first as? ModelEntity)?.model?.materials[0] = material
-								die_temp.components.set(SpinComponent())
-								current_die.addChild(die_temp)
-								updateDie = false
+								do {
+									let material: ShaderGraphMaterial = try await ShaderGraphMaterial(
+										named: "/Root/\(skinData.name)/\(skinData.name)_\(diceName)",
+										from: "Scene.usda",
+										in: DiceEnv.diceEnvBundle
+									)
+									let die_temp = try await Entity(named: diceName, in: DiceEnv.diceEnvBundle)
+									die_temp.scale = dieScale
+									die_temp.position = dposition
+									die_temp.name = "die"
+									(die_temp.children.first as? ModelEntity)?.model?.materials[0] = material
+									die_temp.components.set(SpinComponent())
+									current_die.addChild(die_temp)
+									updateDie = false
+								} catch {
+									print("Failed to update die: \(error)")
+								}
 							}
 						}
 					}
@@ -104,8 +110,9 @@ struct DetailView: View {
 						diceCol.scale = [35,35,35]
 						diceCol.position = [0.0,-0.5,0.0]
 						diceCol.name = "Container"
-						diceCol.children[0].children.forEach { die in
-							(die as! ModelEntity).model?.materials[0] = skins[die.name] ?? SimpleMaterial()
+						diceCol.children.first?.children.forEach { die in
+							guard let modelDie = die as? ModelEntity else { return }
+							modelDie.model?.materials[0] = skins[die.name] ?? SimpleMaterial()
 						}
 						content.add(diceCol)
 					} catch {

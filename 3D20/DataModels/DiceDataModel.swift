@@ -68,23 +68,27 @@ class DiceData: ObservableObject {
 	func addDice(content: inout RealityViewCameraContent) {
 		if let die_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
 			Task {
-				let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/\(self.skin)/\(self.skin)_\(self.dice_type)", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
-				if let dice_entity = try? await Entity(named: "\(self.dice_type)", in: DiceEnv.diceEnvBundle).children.first {
-					dice_entity.setScale(self.diceScale, relativeTo: nil)
-					let shapeRes: ShapeResource = try! await ShapeResource.generateConvex(from: (dice_entity as! ModelEntity).model?.mesh ?? .generateBox(size: 0.10))
-					dice_entity.name = "die"
-					dice_entity.position = self.dice_position
-					dice_entity.components.set(PhysicsBodyComponent(shapes: [shapeRes], mass: 0.6,mode: .dynamic,))
-					dice_entity.components.set(CollisionComponent(shapes: [shapeRes], mode: .colliding))
-					dice_entity.components.set(GroundingShadowComponent(castsShadow: true, receivesShadow: true))
-					(dice_entity as! ModelEntity).physicsBody?.massProperties.inertia = SIMD3<Float>(0.5, 0.5, 0.5)
-					(dice_entity as! ModelEntity).physicsBody?.isContinuousCollisionDetectionEnabled = true
-					dice_entity.transform.rotation = simd_quatf(
-						angle: Float.random(in: 1.0..<180.0),
-						axis: SIMD3(1.0, 0.0, 0.0)
-					)
-					(dice_entity as! ModelEntity).model?.materials[0] = material
-					die_ent.addChild(dice_entity)
+				do {
+					let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/\(self.skin)/\(self.skin)_\(self.dice_type)", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
+					if let dice_entity = try? await Entity(named: "\(self.dice_type)", in: DiceEnv.diceEnvBundle).children.first as? ModelEntity {
+						dice_entity.setScale(self.diceScale, relativeTo: nil)
+						let shapeRes: ShapeResource = try await ShapeResource.generateConvex(from: dice_entity.model?.mesh ?? .generateBox(size: 0.10))
+						dice_entity.name = "die"
+						dice_entity.position = self.dice_position
+						dice_entity.components.set(PhysicsBodyComponent(shapes: [shapeRes], mass: 0.6,mode: .dynamic,))
+						dice_entity.components.set(CollisionComponent(shapes: [shapeRes], mode: .colliding))
+						dice_entity.components.set(GroundingShadowComponent(castsShadow: true, receivesShadow: true))
+						dice_entity.physicsBody?.massProperties.inertia = SIMD3<Float>(0.5, 0.5, 0.5)
+						dice_entity.physicsBody?.isContinuousCollisionDetectionEnabled = true
+						dice_entity.transform.rotation = simd_quatf(
+							angle: Float.random(in: 1.0..<180.0),
+							axis: SIMD3(1.0, 0.0, 0.0)
+						)
+						dice_entity.model?.materials[0] = material
+						die_ent.addChild(dice_entity)
+					}
+				} catch {
+					print("Failed to add dice: \(error)")
 				}
 			}
 		}
@@ -94,9 +98,13 @@ class DiceData: ObservableObject {
 	func changeSkin(content: inout RealityViewCameraContent) {
 		if let die_ent = content.entities.first(where: {$0.name == "dice_anchor"}) {
 			Task {
-				let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/\(self.skin)/\(self.skin)_\(self.dice_type)", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
-				if let die = die_ent.children.first(where: {$0.name == "die"}) as? ModelEntity {
-					die.model?.materials[0] = material
+				do {
+					let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/\(self.skin)/\(self.skin)_\(self.dice_type)", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
+					if let die = die_ent.children.first(where: {$0.name == "die"}) as? ModelEntity {
+						die.model?.materials[0] = material
+					}
+				} catch {
+					print("Failed to change skin: \(error)")
 				}
 			}
 			self.changeDieSkin = false
@@ -108,9 +116,13 @@ class DiceData: ObservableObject {
 		if let die_ent = content.entities.first(where: {$0.name == "dice_anchor"}) {
 			if let tray_ent = die_ent.children.first(where: {$0.name == "Root"}) {
 				Task {
-					let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
-					if let tray = tray_ent.children[0].children.first(where: {$0.name == "tray"}) as? ModelEntity {
-						tray.model?.materials[0] = material
+					do {
+						let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
+						if let tray = tray_ent.children[0].children.first(where: {$0.name == "tray"}) as? ModelEntity {
+							tray.model?.materials[0] = material
+						}
+					} catch {
+						print("Failed to change tray skin: \(error)")
 					}
 				}
 				self.changeTraySkin = false
@@ -122,31 +134,35 @@ class DiceData: ObservableObject {
 	func addTrayCover(content: inout RealityViewCameraContent) {
 		if let tray_ent = content.entities.first(where: { $0.name == "dice_anchor" }) {
 			Task {
-				let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
-				let trayCover = try await Entity(named: "TrayAndCover", in: DiceEnv.diceEnvBundle)
-				trayCover.setScale(SIMD3(0.4, 0.4, 0.4), relativeTo: nil)
-				if let tray = trayCover.children[0].children.first(where: {$0.name == "Bottom"}) as? ModelEntity {
-					let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: tray.model?.mesh ?? .generateBox(size: 1.0))
-					tray.position = [0, 0, 0]
-					tray.name = "tray"
-					tray.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
-					tray.components.set(CollisionComponent(shapes: [shapeRes], mode: .colliding))
-					tray.generateCollisionShapes(recursive: true, static: true)
-					tray.physicsBody?.isContinuousCollisionDetectionEnabled = true
-					tray.model?.materials[0] = material
+				do {
+					let material: ShaderGraphMaterial = try await ShaderGraphMaterial(named: "/Root/TraySkins/\(self.traySkin)_tray", from: "Scene.usda", in: DiceEnv.diceEnvBundle)
+					let trayCover = try await Entity(named: "TrayAndCover", in: DiceEnv.diceEnvBundle)
+					trayCover.setScale(SIMD3(0.4, 0.4, 0.4), relativeTo: nil)
+					if let tray = trayCover.children[0].children.first(where: {$0.name == "Bottom"}) as? ModelEntity {
+						let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: tray.model?.mesh ?? .generateBox(size: 1.0))
+						tray.position = [0, 0, 0]
+						tray.name = "tray"
+						tray.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
+						tray.components.set(CollisionComponent(shapes: [shapeRes], mode: .colliding))
+						tray.generateCollisionShapes(recursive: true, static: true)
+						tray.physicsBody?.isContinuousCollisionDetectionEnabled = true
+						tray.model?.materials[0] = material
+					}
+					if let cover = trayCover.children[0].children.first(where: {$0.name == "Cover"}) as? ModelEntity {
+						let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: cover.model?.mesh ?? .generateBox(size: 1.0))
+						cover.name = "cover"
+						cover.position = [0, 0.001, 0]
+						cover.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
+						cover.components.set(CollisionComponent(shapes: [shapeRes],isStatic: true))
+						cover.collision?.mode = .colliding
+						cover.physicsBody?.isContinuousCollisionDetectionEnabled = true
+						cover.model?.materials[0] = SimpleMaterial(color: .clear, roughness: 0.0, isMetallic: false)
+					}
+					trayCover.position = [0,-0.5,0]
+					tray_ent.addChild(trayCover)
+				} catch {
+					print("Failed to add tray cover: \(error)")
 				}
-				if let cover = trayCover.children[0].children.first(where: {$0.name == "Cover"}) as? ModelEntity {
-					let shapeRes: ShapeResource = try await ShapeResource.generateStaticMesh(from: cover.model?.mesh ?? .generateBox(size: 1.0))
-					cover.name = "cover"
-					cover.position = [0, 0.001, 0]
-					cover.components.set(PhysicsBodyComponent(shapes:[shapeRes], mass: 1.0, mode: .static))
-					cover.components.set(CollisionComponent(shapes: [shapeRes],isStatic: true))
-					cover.collision?.mode = .colliding
-					cover.physicsBody?.isContinuousCollisionDetectionEnabled = true
-					cover.model?.materials[0] = SimpleMaterial(color: .clear, roughness: 0.0, isMetallic: false)
-				}
-				trayCover.position = [0,-0.5,0]
-				tray_ent.addChild(trayCover)
 			}
 		}
 	}
