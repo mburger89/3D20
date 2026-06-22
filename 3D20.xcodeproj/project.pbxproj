@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		032BAE972FE66ACD0083970D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 032BAE962FE66ACD0083970D /* StoreKit.framework */; };
 		7318E7542E396CB600FD1EFC /* DiceEnv in Frameworks */ = {isa = PBXBuildFile; productRef = 73B401EA2E276D6100F4A2F1 /* DiceEnv */; };
 		73563D7A2F4C2BD500D0337E /* 3D20.icon in Resources */ = {isa = PBXBuildFile; fileRef = 73563D792F4C2BD500D0337E /* 3D20.icon */; };
 		73563D7B2F4C2BD500D0337E /* 3D20.icon in Resources */ = {isa = PBXBuildFile; fileRef = 73563D792F4C2BD500D0337E /* 3D20.icon */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		032BAE962FE66ACD0083970D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		73383CE12CFF7492007150D7 /* 3D20.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3D20.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73383CF12CFF7494007150D7 /* 3D20Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 3D20Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		73383CFB2CFF7494007150D7 /* 3D20UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 3D20UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +71,7 @@
 			files = (
 				73A102C22E4D77E300740E8F /* DiceEnv in Frameworks */,
 				73A102C52E4D788D00740E8F /* DiceEnv in Frameworks */,
+				032BAE972FE66ACD0083970D /* StoreKit.framework in Frameworks */,
 				7318E7542E396CB600FD1EFC /* DiceEnv in Frameworks */,
 				73E192D02E347BBC0081A328 /* DiceEnv in Frameworks */,
 			);
@@ -118,6 +121,7 @@
 		73E192CE2E347B960081A328 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				032BAE962FE66ACD0083970D /* StoreKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -438,6 +442,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = 3D20;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = 3D20/3D20.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "3D20/Preview\\ Content/Preview\\ Assets.xcassets";
@@ -451,7 +456,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "arkit metal";
-				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -475,6 +479,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = 3D20;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = 3D20/3D20.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "3D20/Preview\\ Content/Preview\\ Assets.xcassets";
@@ -488,7 +493,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "arkit metal";
-				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
