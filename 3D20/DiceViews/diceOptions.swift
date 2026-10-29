@@ -19,23 +19,30 @@ struct diceOptions: View {
 				}){
 					Image("D04").resizable().scaledToFit()
 				}.frame(width: 100, height: 100)
+				.accessibilityLabel("D4")
 				Button(action:{diceData.dice_type = "D06"; dismiss()}) {
 					Image("D06").resizable().scaledToFit()
 				}.frame(width: 100, height: 100)
+				.accessibilityLabel("D6")
 				Button(action: {diceData.dice_type = "D08"; dismiss()}) {
 					Image("D08").resizable().scaledToFit()
 				}.frame(width: 100, height: 100)
+				.accessibilityLabel("D8")
 			}
 			GridRow{
 				Button(action: {diceData.dice_type = "D10"; dismiss()}){
 					Image("D10").resizable().scaledToFit()
 				}.frame(width: 100, height: 100)
+				.accessibilityLabel("D10")
 				Button(action: {diceData.dice_type = "D12"; dismiss()}) {
 					Image("D12").resizable().scaledToFit()
 				}.frame(width: 100, height: 100)
+				.accessibilityLabel("D12")
 				Button(action: {diceData.dice_type = "D20"; dismiss()}) {
 					Image("D20").resizable().scaledToFit()
 				}.frame(width: 100, height: 100)
+				.accessibilityLabel("D20")
+				.accessibilityIdentifier("D20-button")
 			}
 		}
 	}

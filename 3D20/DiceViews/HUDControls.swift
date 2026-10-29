@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct HUDControls: View {
 	@Environment(DiceData.self) var db
@@ -27,6 +28,7 @@ struct HUDControls: View {
 				.buttonBorderShape(.capsule)
 				.padding(10)
 				.glassEffect()
+				.accessibilityIdentifier("change-skin-button")
 				Spacer()
 				Button("Change\n Dice") {
 					diceData.showDiceOptions.toggle()
@@ -34,6 +36,7 @@ struct HUDControls: View {
 				.buttonBorderShape(.capsule)
 				.padding(10)
 				.glassEffect()
+				.accessibilityIdentifier("change-dice-button")
 			}
 			.padding(.bottom, 25)
 			.padding(.horizontal, 20)
@@ -44,12 +47,15 @@ struct HUDControls: View {
 						.glassEffect()
 						.padding(.leading, 5)
 				}
+				.accessibilityIdentifier("store-link")
 				Button {
+					UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
 					diceData.hasRolled.toggle()
 					diceData.dice_position = [0, 0.15, 0.0]
 				} label: { Image("WoodDie") }
 					.frame(height: 80).scaledToFit()
 					.padding(.horizontal, 30)
+					.accessibilityIdentifier("roll-button")
 				NavigationLink(destination: DiceBag()) {
 					Image("dice.skins")
 						.scaleEffect(3.0)
@@ -58,6 +64,7 @@ struct HUDControls: View {
 						.glassEffect()
 					
 				}
+				.accessibilityIdentifier("dicebag-link")
 			}.padding(.bottom, 50).padding(.horizontal, 10)
 		}
 	}

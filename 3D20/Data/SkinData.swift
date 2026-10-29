@@ -12,12 +12,25 @@ struct SD: Codable, Equatable, Hashable {
 	let name: String
 	var displayName: String = ""
 	var description: String = ""
-	
+
+	enum CodingKeys: String, CodingKey {
+		case id, name, displayName, description
+	}
+
 	init(name: String, displayName: String? = nil, description: String? = nil) {
 		self.id = UUID()
 		self.name = name
 		self.displayName = displayName ?? name
 		self.description = description ?? ""
+	}
+
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		self.id = try container.decodeIfPresent(UUID.self, forKey: .id)
+		self.name = try container.decode(String.self, forKey: .name)
+		let decodedDisplayName = try container.decodeIfPresent(String.self, forKey: .displayName)
+		self.displayName = decodedDisplayName ?? name
+		self.description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
 	}
 }
 
